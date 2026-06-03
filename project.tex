@@ -1,0 +1,399 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage[hidelinks,colorlinks=true]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+% ============================================================
+% COLOR PALETTE
+% ============================================================
+\definecolor{accentdark}{HTML}{0D4F6B}
+\definecolor{accentlight}{HTML}{E6F2F8}
+\definecolor{principlebg}{HTML}{FFF6E6}
+\definecolor{principleborder}{HTML}{C4900A}
+\definecolor{grayrule}{HTML}{CCCCCC}
+\definecolor{alertbg}{HTML}{FFF0F0}
+\definecolor{alertborder}{HTML}{C0392B}
+
+% ============================================================
+% HYPERREF
+% ============================================================
+\hypersetup{
+    linkcolor=accentdark,
+    urlcolor=accentdark,
+    citecolor=accentdark,
+    pdftitle={GenAI-Assisted Document Redaction Governance},
+    pdfauthor={Andrea Gennari}
+}
+
+% ============================================================
+% SECTION STYLING
+% ============================================================
+\titleformat{\section}
+  {\Large\bfseries\color{accentdark}}
+  {\thesection}{1em}{}
+  [\vspace{2pt}{\color{accentdark}\titlerule[1.2pt]}]
+\titlespacing*{\section}{0pt}{24pt plus 4pt minus 2pt}{10pt plus 2pt minus 2pt}
+
+\titleformat{\subsection}
+  {\large\bfseries\color{accentdark!85!black}}
+  {\thesubsection}{0.8em}{}
+\titlespacing*{\subsection}{0pt}{18pt plus 3pt minus 2pt}{6pt plus 2pt minus 1pt}
+
+% ============================================================
+% HEADER / FOOTER
+% ============================================================
+\setlength{\headheight}{16pt}
+\addtolength{\topmargin}{-4pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{accentdark!70!black}\textit{GenAI-Assisted Document Redaction Governance}}
+\fancyhead[R]{\small\color{accentdark!70!black}\textit{\nouppercase{\rightmark}}}
+\fancyfoot[C]{\small\color{accentdark!70!black}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accentdark!40!white}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ============================================================
+% PARAGRAPH & LIST SPACING
+% ============================================================
+\setlength{\parskip}{6pt plus 1pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\setlist[itemize]{
+  topsep=4pt, itemsep=3pt, parsep=1pt,
+  leftmargin=1.8em,
+  label=\textcolor{accentdark}{\textbullet}
+}
+\setlist[enumerate]{
+  topsep=4pt, itemsep=3pt, parsep=1pt,
+  leftmargin=2.2em,
+  label=\textcolor{accentdark}{\arabic*.}
+}
+
+% ============================================================
+% TCOLORBOX STYLES
+% ============================================================
+\newtcolorbox{definitionbox}[1][]{%
+  enhanced, breakable,
+  colback=accentlight,
+  colframe=accentdark,
+  coltitle=white,
+  fonttitle=\bfseries,
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=6mm},
+  boxed title style={colback=accentdark, arc=2pt, boxrule=0pt},
+}
+
+\newtcolorbox{principlebox}[1][]{%
+  enhanced, breakable,
+  colback=principlebg,
+  colframe=principleborder,
+  coltitle=principleborder!80!black,
+  fonttitle=\bfseries,
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=6mm},
+  boxed title style={colback=principlebg, arc=2pt, boxrule=0.6pt, colframe=principleborder},
+}
+
+\newtcolorbox{alertbox}[1][]{%
+  enhanced, breakable,
+  colback=alertbg,
+  colframe=alertborder,
+  coltitle=white,
+  fonttitle=\bfseries,
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=6mm},
+  boxed title style={colback=alertborder, arc=2pt, boxrule=0pt},
+}
+
+\newtcolorbox{quotebox}{%
+  enhanced, breakable,
+  colback=accentlight!40!white,
+  colframe=accentlight!40!white,
+  boxrule=0pt,
+  borderline west={2.5pt}{0pt}{accentdark},
+  arc=0pt,
+  left=10pt, right=8pt, top=6pt, bottom=6pt,
+  fontupper=\itshape,
+}
+
+% ============================================================
+% DOCUMENT BEGIN
+% ============================================================
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+
+    {\color{accentdark}\rule{\textwidth}{1.5pt}}
+
+    \vspace{1.2cm}
+    {\Huge\bfseries\color{accentdark} GenAI-Assisted Document\par}
+    \vspace{0.3cm}
+    {\Huge\bfseries\color{accentdark} Redaction Governance\par}
+    \vspace{0.8cm}
+    {\Large\color{accentdark!80!black} A Governance Framework for Safe Adoption\par}
+    \vspace{1.2cm}
+
+    {\color{accentdark}\rule{0.4\textwidth}{0.8pt}}
+
+    \vspace{2cm}
+    {\large\color{accentdark!70!black} Submitted by\par}
+    \vspace{0.3cm}
+    {\LARGE\bfseries\color{accentdark} Andrea Gennari\par}
+    \vspace{0.5cm}
+    {\normalsize\color{accentdark!70!black} Business and Project Management\par}
+    \vfill
+    {\color{accentdark}\rule{\textwidth}{1.5pt}}
+    \vspace{0.5cm}
+    {\large\color{accentdark!70!black} \today\par}
+\end{titlepage}
+
+\thispagestyle{empty}
+\vspace*{2cm}
+\begin{tcolorbox}[
+  enhanced,
+  colback=accentlight!30!white,
+  colframe=accentdark,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Abstract,
+  attach boxed title to top center={yshift=-3mm},
+  boxed title style={colback=accentdark, arc=3pt, boxrule=0pt},
+  arc=3pt,
+  boxrule=0.8pt,
+  left=12pt, right=12pt, top=10pt, bottom=10pt,
+]
+This paper proposes a governance framework for the safe adoption of Generative AI-assisted document redaction tools. The central research question is: how can organizations adopt GenAI-assisted redaction through governance, human-in-the-loop controls, audit logging and risk management? The framework is organized in four pillars anchored to GDPR, the NIST AI Risk Management Framework and ISO/IEC 42001, and is illustrated against the Post Office Horizon data breach case.
+\end{tcolorbox}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Framing and Foundations}
+\label{sec:foundations}
+
+\subsection{Framework Overview}
+
+Organizations that publish documents externally need a controlled, auditable process to ensure sensitive content is identified and redacted before release. GenAI tools can support this process, but adopting them without governance introduces new risks: over-reliance on automation, lack of accountability, and potential data leakage.
+
+This paper proposes a \textbf{governance framework} that controls how a document moves from drafting to external publication, structured in four pillars: Governance, Human-in-the-Loop Controls, Audit Logging, and Risk Management. Each pillar addresses a distinct failure mode observed in uncontrolled redaction processes. Table~\ref{tab:structure} shows how the paper is organized.
+
+\begin{table}[h!]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{4.8cm} p{9cm} @{}}
+\toprule
+\textbf{\color{accentdark}Section} & \textbf{\color{accentdark}Content} \\
+\midrule
+\S\ref{sec:foundations}: Foundations & Criteria for safe adoption and regulatory baseline \\
+\S\ref{sec:governance}: Pillar~I & Governance, policy and accountability structure \\
+\S\ref{sec:hitl}: Pillar~II & Human-in-the-loop controls and document risk classification \\
+\S\ref{sec:audit}: Pillar~III & Audit logging and demonstrable compliance \\
+\S\ref{sec:risk}: Pillar~IV & Risk management process and register \\
+\S\ref{sec:adoption} & Adoption roadmap, KPIs and business case \\
+\bottomrule
+\end{tabular}
+\caption{Structure of the paper.}
+\label{tab:structure}
+\end{table}
+
+The framework is designed first in full, then deployed through a limited pilot before scaling. This sequencing (predictive design, iterative rollout) follows the hybrid lifecycle approach \cite{falchi_slides}.
+
+\subsection{Defining ``Safe Adoption''}
+\label{sec:safe_adoption}
+
+For the framework to be useful it must be possible to verify whether it is working. The following five criteria define what safe adoption looks like in practice; Section~\ref{sec:synthesis} checks the framework against each of them.
+
+\begin{definitionbox}[Five Criteria for Safe Adoption]
+\begin{enumerate}
+  \item \textbf{No unauthorized disclosure.} No personal or confidential data is shared or published unless it has passed a documented review and approval process. This criterion is directly motivated by the Post Office Horizon incident, where an unredacted document was published.
+
+  \item \textbf{Regulatory compliance.} The adoption satisfies GDPR Art.~25 (data protection by design and by default) and Art.~32 (appropriate technical and organizational measures), and meets the ICO expectation of a systematic, documented pre-publication control.
+
+  \item \textbf{Accountability and auditability.} Every document processed generates a record that can demonstrate to a regulator, a court, or internal governance what action was taken, by whom, and when; this satisfies the GDPR accountability principle (Art.~5(2)).
+
+  \item \textbf{Preserved human oversight.} No high-risk or very-high-risk document is published without explicit, documented human approval. GenAI is used to \emph{support}, not to \emph{replace}, human judgement; the human reviewer is the final control gate.
+
+  \item \textbf{Sustainable adoption.} The framework is genuinely embedded in the workflow: staff are trained, the process is followed consistently, and the KPIs are met within the pilot period. A technically correct framework that is bypassed in practice has zero risk-reduction value.
+\end{enumerate}
+\end{definitionbox}
+
+Each criterion has a corresponding failure condition that triggers escalation or corrective review (Table~\ref{tab:failure}).
+
+\begin{table}[h!]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{4.5cm} p{9cm} @{}}
+\toprule
+\textbf{\color{accentdark}Criterion} & \textbf{\color{accentdark}Failure condition (triggers escalation)} \\
+\midrule
+No unauthorized disclosure & Any unredacted or confidential content shared/published \\
+Regulatory compliance & Any document processed outside the GDPR Art.~25/32 controls \\
+Accountability \& auditability & Any document with an incomplete or missing audit record \\
+Preserved human oversight & Any high-risk document released without documented human approval \\
+Sustainable adoption & KPI targets missed beyond tolerance; systematic bypass of the process \\
+\bottomrule
+\end{tabular}
+\caption{Failure conditions for each safe-adoption criterion.}
+\label{tab:failure}
+\end{table}
+
+Each criterion maps to one or more KPIs defined in Section~\ref{sec:adoption} and follows the SMART principle: specific, measurable, attainable within the pilot scope, relevant, and time-bound \cite{falchi_slides}.
+
+\subsection{Regulatory and Standards Baseline}
+% FILL (next step): GDPR Art.25/32; ICO reprimand expectations; NIST AI RMF (Govern/Map/Measure/Manage); ISO/IEC 27001 & 42001; PMI/PMBOK. End with a mapping table requirement <-> standard <-> where addressed.
+\textit{[To be developed in the next step: standards baseline + mapping table.]}
+
+\subsection{Framework Architecture}
+% FILL (next step): one-page overview + diagram — governance "spine" supporting the 4 pillars, feeding an adoption lifecycle; restate "AI suggests, humans approve, the organization remains accountable".
+\textit{[To be developed in the next step: framework overview + architecture diagram.]}
+
+% ============================================================
+\section{Governance (Pillar I)}
+\label{sec:governance}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Human-in-the-Loop Controls (Pillar II)}
+\label{sec:hitl}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Audit Logging and Accountability (Pillar III)}
+\label{sec:audit}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Risk Management (Pillar IV)}
+\label{sec:risk}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Adoption, Measurement and Business Case}
+\label{sec:adoption}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Synthesis: Answering RQ1}
+\label{sec:synthesis}
+\textit{[To be developed.]}
+
+% ============================================================
+% PART II — RQ2
+% ============================================================
+\clearpage
+\begin{center}
+{\color{accentdark}\rule{\textwidth}{1.2pt}}\\[6pt]
+{\Huge\bfseries\color{accentdark} Part II}\\[8pt]
+{\LARGE\bfseries\color{accentdark!85!black} RQ2: The Post Office Horizon Case}\\[8pt]
+{\color{accentdark}\rule{\textwidth}{1.2pt}}
+\end{center}
+\vspace{8pt}
+
+\begin{quotebox}
+\textbf{RQ2.} How could a GenAI-assisted governance framework have reduced the privacy and data leakage risks in the Post Office Horizon document publication case?
+\end{quotebox}
+
+% ============================================================
+\section{Case Analysis: Root Causes and Governance Gaps}
+\label{sec:rq2_case}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Applying the Framework to the Case}
+\label{sec:rq2_apply}
+
+\subsection{Governance Controls (Pillar I)}
+\textit{[To be developed.]}
+
+\subsection{Human-in-the-Loop Controls (Pillar II)}
+\textit{[To be developed.]}
+
+\subsection{Audit Logging (Pillar III)}
+\textit{[To be developed.]}
+
+\subsection{Risk Management (Pillar IV)}
+\textit{[To be developed.]}
+
+% ============================================================
+\section{Counterfactual Analysis}
+\label{sec:rq2_counterfactual}
+
+% What would have changed if the framework had been in place?
+\textit{[To be developed: for each root cause identified in \S\ref{sec:rq2_case}, show which framework control would have prevented or mitigated it.]}
+
+% ============================================================
+\section{Answer to RQ2}
+\label{sec:rq2_synthesis}
+\textit{[To be developed.]}
+
+% ============================================================
+% REFERENCES
+% ============================================================
+\begin{thebibliography}{9}
+
+\bibitem{falchi_slides}
+Alessio Falchi.
+\textit{Project \& Business Management --- Course Slides}.
+University of Pisa, 2024.
+
+\bibitem{gdpr}
+European Union.
+\textit{General Data Protection Regulation (GDPR), Articles 5, 25 and 32}.
+
+\bibitem{nist_ai_rmf}
+National Institute of Standards and Technology.
+\textit{Artificial Intelligence Risk Management Framework (AI RMF 1.0)}.
+2023.
+
+\bibitem{iso42001}
+International Organization for Standardization.
+\textit{ISO/IEC 42001:2023 --- Artificial Intelligence Management Systems}.
+2023.
+
+\bibitem{iso27001}
+International Organization for Standardization.
+\textit{ISO/IEC 27001:2022 --- Information Security Management Systems}.
+2022.
+
+\bibitem{ico2025}
+Information Commissioner's Office.
+\textit{Post Office Limited Reprimand}.
+2025.
+
+\end{thebibliography}
+
+\end{document}
