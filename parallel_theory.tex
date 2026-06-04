@@ -2,7 +2,7 @@
 
 % ============================================================
 % THEORY MAP — where to study on the slides
-% Grows hand in hand with project.tex.
+% Grows hand in hand with src.tex.
 % Each section of the paper -> slide pages to study.
 % Sections not yet implemented remain placeholders.
 % ============================================================
@@ -127,7 +127,7 @@
   enhanced, breakable, colback=gray!6, colframe=gray!40, boxrule=0.6pt, arc=2pt,
   left=8pt, right=8pt, top=5pt, bottom=5pt,
 ]
-This document grows in parallel with \texttt{project.tex}. For each section of the paper, it indicates the Project Management concept used and the \textbf{slide pages} (\textit{1 - PM Fundamentals}) to study to be able to defend it in the oral exam. Sections still to be written remain marked \statustodo{} with a space to fill.
+This document grows in parallel with \texttt{src.tex}. For each section of the paper, it indicates the Project Management concept used and the \textbf{slide pages} (\textit{1 - PM Fundamentals}) to study to be able to defend it in the oral exam. Sections still to be written remain marked \statustodo{} with a space to fill.
 \end{tcolorbox}
 
 \tableofcontents
@@ -167,40 +167,64 @@ This document grows in parallel with \texttt{project.tex}. For each section of t
   \item ISO/IEC 42001:2023 --- Clause~6, Annex A.6 and A.9
   \item ISO/IEC 27001:2022 --- Annex A.5, A.8.2, A.8.11, A.8.15
 \end{itemize}
-\textbf{To defend at the oral:} state \emph{why} each standard is cited (what gap it closes) and which pillar it maps to. The mapping table in \S1.3 of \texttt{project.tex} is the revision aid.
+\textbf{To defend at the oral:} state \emph{why} each standard is cited (what gap it closes) and which pillar it maps to. The mapping table in \S1.3 of \texttt{src.tex} is the revision aid.
 
 % ------------------------------------------------------------
 \subsection{\S1.4 Framework Architecture \ \statusdone}
 \concetto{Project authorization and scope baseline. Defining the four-pillar architecture before the pilot is the PM act of establishing a project baseline: a documented, agreed description of what will be built, against which all subsequent changes are evaluated.}
 \textbf{To study:}
 \begin{itemize}
+  \slide{16}{Hybrid Approach}{the architecture is designed predictively; deployment is iterative. \S1.4 closes the loop from \S1.1 by making explicit where the predictive / iterative boundary sits.}
   \slide{22--23}{Defining Project Success / Triple Constraint}{scope, time, cost as the baseline triangle; changing one affects the others. Locking the architecture before the pilot freezes the scope baseline.}
   \slide{30--32}{Project Charter / Authorization}{the document that formally authorizes the project and names the sponsor. Pillar~I's governance spine plays the same role: it gives formal authority to the other three pillars.}
-  \slide{16}{Hybrid Approach}{the architecture is designed predictively; deployment is iterative. \S1.4 closes the loop from \S1.1 by making explicit where the predictive / iterative boundary sits.}
 \end{itemize}
 
 % ============================================================
 \section{Part I --- The Four Pillars}
 
 % ------------------------------------------------------------
-\subsection{\S2 Governance (Pillar I) \ \statustodo}
-\placeholder{}
-% expected: Stakeholder management + Power/Interest matrix (p.201-206), Push/Pull (p.75-76), RACI / organizational structures.
+\subsection{\S2 Governance (Pillar I) \ \statusdone}
+\concetto{Stakeholder management and responsibility assignment. The five governance roles are the project's stakeholders, the Board is the governing body, and the RACI matrix assigns accountability. Engagement strategy follows power/interest; communication follows push/pull.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{65}{Organizational structures: authority, responsibility, accountability}{accountability is not shared and equals authority $+$ responsibility; the principle behind the single-Accountable rule.}
+  \slide{70--73}{Responsibility matrix / RACI}{linear responsibility chart (LRC / RAM); R / A / C / I, with exactly one Accountable per task (p.~72) and a worked example (p.~73). Underpins the RACI table in \S2.4.}
+  \slide{75--76}{Push vs Pull communication}{push $=$ actively sent (policy changes, incidents); pull $=$ retrieved on demand (approval records in the audit log).}
+  \slide{201--206}{Stakeholder management / Power/Interest grid}{classify by power and interest: manage closely, keep satisfied, keep informed, or monitor. Used to place DPO, Legal, IT Security, document owners and senior management.}
+\end{itemize}
 
 % ------------------------------------------------------------
-\subsection{\S3 Human-in-the-Loop Controls (Pillar II) \ \statustodo}
-\placeholder{}
-% expected: document risk classification -> Probability-Impact (p.301-307); decision making / escalation.
+\subsection{\S3 Human-in-the-Loop Controls (Pillar II) \ \statusdone}
+\concetto{Risk-based prioritization and decision-making under uncertainty. Document classification applies a probability/impact logic (sensitivity $\times$ exposure $\times$ audience) to route human attention; escalation is structured decision-making.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{44}{Leadership and soft skills: decision-making}{unilateral versus group-based decision-making, diverge/converge, and the escalation mechanism; the basis for the gated escalation in \S3.3.}
+  \slide{301--307}{Probability/Impact matrix}{the scoring logic behind the three-tier classification (\S3.1 and \S3.2) and the level of human control each tier triggers.}
+\end{itemize}
 
 % ------------------------------------------------------------
-\subsection{\S4 Audit Logging and Accountability (Pillar III) \ \statustodo}
-\placeholder{}
-% expected: mainly external standards (GDPR accountability); little from the slides.
+\subsection{\S4 Audit Logging and Accountability (Pillar III) \ \statusdone}
+\concetto{Accountability and documented evidence. This pillar rests on external regulation rather than the course slides: the duty to \emph{demonstrate} compliance, not merely to achieve it.}
+\textbf{Note: this section draws mainly on external sources, not course slides.} The references are:
+\begin{itemize}
+  \item GDPR Art.~5(2) accountability; Art.~5(1)(e) storage limitation; Art.~32 confidentiality.
+  \item ICO Post Office Limited Reprimand (2025): the finding was the absence of a documented, auditable process.
+  \item ISO/IEC 27001:2022 A.8.15 (logging) as the control reference.
+\end{itemize}
+\textbf{To defend at the oral:} explain why the log is the \emph{evidence} that the Art.~32 controls operated, and link each schema group to the requirement it satisfies (the table in \S4.3).
 
 % ------------------------------------------------------------
-\subsection{\S5 Risk Management (Pillar IV) \ \statustodo}
-\placeholder{The section richest in theory from the slides.}
-% expected: PMI risk framework 6-step (p.357-388); Probability-Impact matrix (p.301-307); flaw of averages + Monte Carlo (p.308-311, 351-356); EMV + Decision Tree (p.322-330); response strategies Avoid/Transfer/Mitigate/Accept (p.363); reserves and triggers (p.366-387).
+\subsection{\S5 Risk Management (Pillar IV) \ \statusdone}
+\concetto{The full PMI risk-management process: plan, identify, qualitative and quantitative analysis, plan responses, monitor and control. This is the most theory-dense section of the paper.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{301--307}{Probability/Impact matrix}{qualitative scoring; the heat map in \S5.3 plots the register on this grid.}
+  \slide{308--311, 351--356}{Flaw of averages / Monte Carlo}{why an EMV average understates the tail; justifies the very-high tier $+$ dual control for low-probability, catastrophic outcomes.}
+  \slide{322--330}{Expected Monetary Value / decision tree}{EMV $=$ probability $\times$ impact; underlies the cost-of-inaction analysis (case-calibrated version in \S10).}
+  \slide{357--388}{PMI risk-management process}{the six steps: plan $\to$ identify $\to$ qualitative $\to$ quantitative $\to$ responses $\to$ monitor; the backbone of \S5.1.}
+  \slide{363}{Risk response strategies}{Avoid / Transfer / Mitigate / Accept: the four strategies in the response table (\S5.4).}
+  \slide{366--387}{Reserves, triggers and monitoring}{contingency / management reserves and trigger conditions; the monitoring loop in \S5.4 (residual risk $\to$ audit review).}
+\end{itemize}
 
 % ============================================================
 \section{Part I --- Adoption and Synthesis}
