@@ -19,6 +19,7 @@
 \usepackage{setspace}
 \usepackage{parskip}
 \usepackage{graphicx}
+\usepackage{float}
 
 % ============================================================
 % COLOR PALETTE
@@ -209,7 +210,7 @@ Organizations that publish documents externally need a controlled, auditable pro
 
 This paper proposes a \textbf{governance framework} that controls how a document moves from drafting to external publication, structured in four pillars: Governance, Human-in-the-Loop Controls, Audit Logging, and Risk Management. Each pillar addresses a distinct failure mode observed in uncontrolled redaction processes. Table~\ref{tab:structure} shows how the paper is organized.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \small
 \rowcolors{2}{accentlight!30!white}{white}
@@ -234,7 +235,7 @@ The framework is designed first in full, then deployed through a limited pilot b
 \subsection{Defining ``Safe Adoption''}
 \label{sec:safe_adoption}
 
-For the framework to be useful it must be possible to verify whether it is working. The following five criteria define what safe adoption looks like in practice; Section~\ref{sec:synthesis} checks the framework against each of them.
+For the framework to be useful it must be possible to verify whether it is working. The following five criteria define what safe adoption looks like in practice; the framework as a whole is designed to satisfy all five simultaneously.
 
 \begin{definitionbox}[Five Criteria for Safe Adoption]
 \begin{enumerate}
@@ -252,7 +253,7 @@ For the framework to be useful it must be possible to verify whether it is worki
 
 Each criterion has a corresponding failure condition that triggers escalation or corrective review (Table~\ref{tab:failure}).
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \small
 \rowcolors{2}{accentlight!30!white}{white}
@@ -271,15 +272,125 @@ Sustainable adoption & KPI targets missed beyond tolerance; systematic bypass of
 \label{tab:failure}
 \end{table}
 
-Each criterion maps to one or more KPIs defined in Section~\ref{sec:adoption} and follows the SMART principle: specific, measurable, attainable within the pilot scope, relevant, and time-bound \cite{falchi_slides}.
+Each criterion is formulated following the SMART principle: specific, measurable, attainable within the pilot scope, relevant, and time-bound \cite{falchi_slides}.
 
 \subsection{Regulatory and Standards Baseline}
-% FILL (next step): GDPR Art.25/32; ICO reprimand expectations; NIST AI RMF (Govern/Map/Measure/Manage); ISO/IEC 27001 & 42001; PMI/PMBOK. End with a mapping table requirement <-> standard <-> where addressed.
-\textit{[To be developed in the next step: standards baseline + mapping table.]}
+\label{sec:baseline}
+
+Three regulatory layers constrain how any GenAI-assisted redaction tool can be introduced: EU data protection law, UK supervisory expectations, and international management-systems standards for information security and AI. Each layer creates binding requirements that the framework must satisfy as a minimum; together they define the non-negotiable floor.
+
+\noindent\textbf{GDPR: Key Articles}\par
+
+\textbf{Article 25: Data Protection by Design and by Default} requires data-protection principles to be embedded in processing systems \emph{before} data is processed, not retrofitted afterwards. For a redaction workflow this has a direct operational implication: the review gate must be part of the default publication path, not an optional add-on that staff can skip under time pressure.
+
+\textbf{Article 32: Security of Processing} requires ``appropriate technical and organisational measures'' to ensure confidentiality and integrity of personal data. The combination of GenAI-assisted detection plus mandatory human review is the technical measure; the governance policy, training programme, and audit log together constitute the organisational measures.
+
+\textbf{Article 5(2): Accountability} requires the controller to be able to \emph{demonstrate} compliance. This is the direct driver of Pillar~III (audit logging): without a persistent, tamper-evident record of every review decision, the organization cannot demonstrate to the ICO or a court that Art.~32 controls operated correctly in any specific case.
+
+\noindent\textbf{ICO Expectations}\par
+
+The ICO's 2025 reprimand of Post Office Limited established that publishing documents containing personal data without a systematic, documented pre-publication control process constitutes a breach of Art.~5(1)(f) and Art.~32 \cite{ico2025}. The ICO's corrective requirement was precisely a documented, auditable process for reviewing documents before external release. This supervisory expectation is the origin of Pillar~II and Pillar~III, and it also sets the evidential bar: it is not enough to have a process; the organization must be able to demonstrate that the process was followed for every document.
+
+\noindent\textbf{NIST AI Risk Management Framework (AI RMF 1.0)}\par
+
+The NIST AI RMF \cite{nist_ai_rmf} organises AI risk governance around four functions:
+
+\begin{itemize}
+  \item \textbf{GOVERN}: organisational policies, accountability structures, and risk culture for AI use.
+  \item \textbf{MAP}: contextualising the AI application, identifying potential harms, and categorising risk.
+  \item \textbf{MEASURE}: quantifying and evaluating identified AI risks using defined metrics and testing.
+  \item \textbf{MANAGE}: prioritising, responding to, and monitoring AI risks over time.
+\end{itemize}
+
+The framework's four pillars map directly: Pillar~I (Governance) operationalises GOVERN; Pillar~IV (Risk Management) covers MAP, MEASURE, and MANAGE.
+
+\noindent\textbf{ISO/IEC Standards}\par
+
+\textbf{ISO/IEC 42001:2023} \cite{iso42001} (AI Management Systems) requires organisations to conduct an AI risk assessment before deployment (Clause~6), maintain documented human oversight mechanisms (Annex~A.6), and evaluate AI system impacts on data subjects (Annex~A.9). These requirements are satisfied by Pillar~II (human-in-the-loop), Pillar~III (accountability record), and Pillar~IV (risk register).
+
+\textbf{ISO/IEC 27001:2022} \cite{iso27001} (Information Security Management Systems) requires information classification (Annex~A.8.2), data masking controls (A.8.11), and documented information security policies (A.5.1). The document risk classification scheme in Pillar~II directly implements A.8.2; the audit log satisfies the evidence requirements of A.8.15.
+
+\noindent\textbf{Requirement Mapping}\par
+
+Table~\ref{tab:standards} maps each regulatory requirement to its source and the pillar that addresses it. Every row in the table corresponds to at least one safe-adoption criterion from Section~\ref{sec:safe_adoption}.
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{4.3cm} p{3.5cm} p{5.7cm} @{}}
+\toprule
+\textbf{\color{accentdark}Requirement} & \textbf{\color{accentdark}Source} & \textbf{\color{accentdark}Addressed in} \\
+\midrule
+Data protection by design & GDPR Art.~25 & Pillar~I (policy mandate) + Pillar~II (default review gate) \\
+Appropriate security measures & GDPR Art.~32 & Pillar~I + II + III \\
+Demonstrable accountability & GDPR Art.~5(2) & Pillar~III (immutable audit log) \\
+Documented pre-publication control & ICO reprimand 2025 & Pillar~II (HITL review gate) \\
+AI governance and risk culture & NIST AI RMF GOVERN & Pillar~I (governance structure, RACI) \\
+AI risk identification & NIST AI RMF MAP & Pillar~IV (risk register) \\
+AI risk measurement & NIST AI RMF MEASURE & Pillar~IV (performance metrics and KPIs) \\
+AI risk treatment & NIST AI RMF MANAGE & Pillar~IV (response strategies) \\
+AI human oversight & ISO/IEC 42001 A.6 & Pillar~II (mandatory human approval) \\
+AI impact assessment & ISO/IEC 42001 Cl.~6 & Pillar~IV (pre-deployment risk assessment) \\
+Information classification & ISO/IEC 27001 A.8.2 & Pillar~II (document risk tiers) \\
+Audit evidence & ISO/IEC 27001 A.8.15 & Pillar~III (audit log) \\
+\bottomrule
+\end{tabular}
+\caption{Regulatory and standards requirements mapped to framework pillars.}
+\label{tab:standards}
+\end{table}
 
 \subsection{Framework Architecture}
-% FILL (next step): one-page overview + diagram — governance "spine" supporting the 4 pillars, feeding an adoption lifecycle; restate "AI suggests, humans approve, the organization remains accountable".
-\textit{[To be developed in the next step: framework overview + architecture diagram.]}
+\label{sec:architecture}
+
+The framework is organized as a \textbf{governance spine} (Pillar~I) that gives formal authority to three operational pillars, all feeding into a hybrid adoption lifecycle. The central design principle is stated once here and governs every subsequent decision in the paper:
+
+\begin{principlebox}[Architectural Principle]
+\textbf{AI suggests, humans approve, the organization remains accountable.} The GenAI tool is a detection assistant, not a decision authority. Every publication decision is owned by a named human; every decision is recorded by the audit log; and the governance policy, not the tool's confidence score, defines when human override is mandatory.
+\end{principlebox}
+
+\noindent\textbf{The Governance Spine}\par
+
+Pillar~I is the load-bearing structure. It defines the policy mandate, the accountability hierarchy, and the RACI matrix that authorizes the other three pillars to operate. Without it, the other pillars have no formal standing: the audit log is not required, the review gate can be bypassed, and the risk register has no accountable owner.
+
+\noindent\textbf{The Three Operational Pillars}\par
+
+\begin{itemize}
+  \item \textbf{Pillar~II: Human-in-the-Loop Controls} classifies every inbound document into one of three risk tiers (standard, high, very high) and routes it through the corresponding review gate. The lowest tier is named \emph{standard}, not \emph{low}, because every document entering the workflow already contains personal data subject to GDPR; there is no tier at which redaction review is optional. High-risk and very-high-risk documents cannot be published without explicit, documented human approval. GenAI output is a first-pass recommendation, not a final decision.
+
+  \item \textbf{Pillar~III: Audit Logging} records every action taken on every document: the GenAI redaction proposals, each human review step, the final approval or rejection, and the identity and timestamp of every actor. The log is immutable, queryable, and retained as regulatory evidence.
+
+  \item \textbf{Pillar~IV: Risk Management} maintains a living risk register for the GenAI tool itself, tracks residual risk after controls are applied, and triggers escalation when thresholds are crossed. It also specifies the manual fallback process for system unavailability.
+\end{itemize}
+
+\noindent\textbf{Document Flow Through the Framework}\par
+
+Table~\ref{tab:docflow} shows how a document moves from draft to publication. The flow is linear for standard-risk documents; high-risk and very-high-risk documents add the mandatory approval step (Step~5) before the audit token is issued.
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} c p{3.2cm} p{8.3cm} @{}}
+\toprule
+\textbf{\color{accentdark}Step} & \textbf{\color{accentdark}Actor} & \textbf{\color{accentdark}Action} \\
+\midrule
+1 & Document owner & Submits draft to the redaction workflow \\
+2 & Pillar~II system & Classifies document risk tier; routes to appropriate review queue \\
+3 & GenAI tool & Proposes redactions; confidence scores recorded in audit log (Pillar~III) \\
+4 & Human reviewer & Reviews, confirms or overrides GenAI proposals; decision recorded \\
+5 & Approval authority & \textit{(High/very-high risk only)} Signs off on final redacted version \\
+6 & Pillar~III log & Locks the complete review record; approval token generated \\
+7 & Document owner & Publishes against the approval token \\
+\bottomrule
+\end{tabular}
+\caption{Document flow from draft to publication under the framework.}
+\label{tab:docflow}
+\end{table}
+
+\noindent\textbf{Hybrid Adoption Lifecycle}\par
+
+The framework is designed predictively (all four pillars are defined in full before the pilot begins), but deployed iteratively: a controlled pilot tests the workflow on a defined document set, generates KPI data, and informs calibration of the risk-tier thresholds and review workloads before organization-wide rollout. This sequencing reduces adoption risk without sacrificing architectural coherence; it follows the hybrid lifecycle approach described in Section~\ref{sec:foundations} \cite{falchi_slides}.
 
 % ============================================================
 \section{Governance (Pillar I)}
@@ -367,7 +478,7 @@ Each criterion maps to one or more KPIs defined in Section~\ref{sec:adoption} an
 
 \bibitem{falchi_slides}
 Alessio Falchi.
-\textit{Project \& Business Management --- Course Slides}.
+\textit{Project \& Business Management: Course Slides}.
 University of Pisa, 2024.
 
 \bibitem{gdpr}
@@ -381,12 +492,12 @@ National Institute of Standards and Technology.
 
 \bibitem{iso42001}
 International Organization for Standardization.
-\textit{ISO/IEC 42001:2023 --- Artificial Intelligence Management Systems}.
+\textit{ISO/IEC 42001:2023, Artificial Intelligence Management Systems}.
 2023.
 
 \bibitem{iso27001}
 International Organization for Standardization.
-\textit{ISO/IEC 27001:2022 --- Information Security Management Systems}.
+\textit{ISO/IEC 27001:2022, Information Security Management Systems}.
 2022.
 
 \bibitem{ico2025}

@@ -1,0 +1,240 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================
+% THEORY MAP — where to study on the slides
+% Grows hand in hand with project.tex.
+% Each section of the paper -> slide pages to study.
+% Sections not yet implemented remain placeholders.
+% ============================================================
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage[hidelinks,colorlinks=true]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+% ============================================================
+% COLOR PALETTE
+% ============================================================
+\definecolor{accentdark}{HTML}{0D4F6B}
+\definecolor{accentlight}{HTML}{E6F2F8}
+\definecolor{principlebg}{HTML}{FFF6E6}
+\definecolor{principleborder}{HTML}{C4900A}
+\definecolor{grayrule}{HTML}{CCCCCC}
+\definecolor{alertbg}{HTML}{FFF0F0}
+\definecolor{alertborder}{HTML}{C0392B}
+\definecolor{donegreen}{HTML}{1E7B34}
+
+% ============================================================
+% HYPERREF
+% ============================================================
+\hypersetup{
+    linkcolor=accentdark,
+    urlcolor=accentdark,
+    citecolor=accentdark,
+    pdftitle={Theory Map — Where to study on the slides},
+    pdfauthor={Andrea Gennari}
+}
+
+% ============================================================
+% SECTION STYLING
+% ============================================================
+% The subsection titles already contain the paper section references (\S...).
+\setcounter{secnumdepth}{0}
+
+\titleformat{\section}
+  {\Large\bfseries\color{accentdark}}
+  {}{0pt}{}
+  [\vspace{2pt}{\color{accentdark}\titlerule[1.2pt]}]
+\titlespacing*{\section}{0pt}{24pt plus 4pt minus 2pt}{10pt plus 2pt minus 2pt}
+
+\titleformat{\subsection}
+  {\large\bfseries\color{accentdark!85!black}}
+  {}{0pt}{}
+\titlespacing*{\subsection}{0pt}{16pt plus 3pt minus 2pt}{4pt plus 2pt minus 1pt}
+
+% ============================================================
+% HEADER / FOOTER
+% ============================================================
+\setlength{\headheight}{16pt}
+\addtolength{\topmargin}{-4pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{accentdark!70!black}\textit{Theory Map}}
+\fancyhead[R]{\small\color{accentdark!70!black}\textit{\nouppercase{\rightmark}}}
+\fancyfoot[C]{\small\color{accentdark!70!black}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accentdark!40!white}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ============================================================
+% PARAGRAPH & LIST SPACING
+% ============================================================
+\setlength{\parskip}{6pt plus 1pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\setlist[itemize]{
+  topsep=3pt, itemsep=2pt, parsep=1pt,
+  leftmargin=1.8em,
+  label=\textcolor{accentdark}{\textbullet}
+}
+
+% ============================================================
+% HELPER MACROS
+% ============================================================
+% Section status: done / to do
+\newcommand{\statusdone}{\textcolor{donegreen}{\small\textbf{[implemented]}}}
+\newcommand{\statustodo}{\textcolor{alertborder!80!black}{\small\textbf{[to be implemented]}}}
+
+% Slide reference:  \slide{38}{Validating the objectives}{description}
+\newcommand{\slide}[3]{\item \textbf{p.~#1} --- \textit{#2}: #3}
+
+% Visible placeholder for sections not yet compiled
+\newcommand{\placeholder}[1]{\textcolor{gray!70!black}{\itshape [To be compiled when we implement this section. #1]}}
+
+% Theoretical concept of a section
+\newcommand{\concetto}[1]{\textbf{PM Concept:} #1\par\vspace{2pt}}
+
+% ============================================================
+% DOCUMENT BEGIN
+% ============================================================
+\begin{document}
+
+\begin{center}
+{\color{accentdark}\rule{\textwidth}{1.5pt}}\\[8pt]
+{\LARGE\bfseries\color{accentdark} Theory Map}\\[6pt]
+{\large\color{accentdark!80!black} Where to study on the slides, section by section}\\[8pt]
+{\color{accentdark}\rule{\textwidth}{1.5pt}}
+\end{center}
+
+\vspace{4pt}
+
+\begin{tcolorbox}[
+  enhanced, breakable, colback=gray!6, colframe=gray!40, boxrule=0.6pt, arc=2pt,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+]
+This document grows in parallel with \texttt{project.tex}. For each section of the paper, it indicates the Project Management concept used and the \textbf{slide pages} (\textit{1 - PM Fundamentals}) to study to be able to defend it in the oral exam. Sections still to be written remain marked \statustodo{} with a space to fill.
+\end{tcolorbox}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Part I --- RQ1: Framework}
+
+% ------------------------------------------------------------
+\subsection{\S1.1 Framework Overview \ \statusdone}
+\concetto{Hybrid project lifecycle --- the framework is designed predictively (everything defined in advance) but adopted iteratively (pilot, then scale-up).}
+\textbf{To study:}
+\begin{itemize}
+  \slide{13}{Traditional Predictive Projects}{the waterfall approach: predicts and anticipates, sequential phases.}
+  \slide{14--15}{The agile way / Agile manifesto}{delivery in small increments, adaptation.}
+  \slide{16}{Hybrid Approach}{blends predictive + iterative: agile upfront to explore, predictive to build.}
+  \slide{18}{Would your project benefit from a hybrid approach?}{when a hybrid approach is beneficial (uncertain requirements, risk, complexity).}
+\end{itemize}
+
+% ------------------------------------------------------------
+\subsection{\S1.2 Defining ``Safe Adoption'' \ \statusdone}
+\concetto{Defining success in a measurable way. The five safe adoption criteria are formulated as SMART objectives, each linked to a KPI.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{22}{Defining Project Success}{what makes a project ``successful'' (time, cost, quality, stakeholder acceptance).}
+  \slide{38}{Validating the objectives}{SMART rule: Specific, Measurable, Attainable, Realistic, Time-bound (with example).}
+\end{itemize}
+
+% ------------------------------------------------------------
+\subsection{\S1.3 Regulatory and Standards Baseline \ \statusdone}
+\concetto{Constraint identification and requirements elicitation. Before designing the framework the PM maps all external constraints (regulatory, legal, supervisory) that bound the solution space. This is the PM equivalent of identifying non-negotiable project constraints before scoping the work.}
+\textbf{Note: this section draws entirely on external regulatory sources, not course slides.} The authoritative references are:
+\begin{itemize}
+  \item GDPR Art.~5(2), 25, 32 (EU 2016/679)
+  \item ICO Post Office Limited Reprimand (2025)
+  \item NIST AI RMF 1.0 (2023) --- GOVERN / MAP / MEASURE / MANAGE
+  \item ISO/IEC 42001:2023 --- Clause~6, Annex A.6 and A.9
+  \item ISO/IEC 27001:2022 --- Annex A.5, A.8.2, A.8.11, A.8.15
+\end{itemize}
+\textbf{To defend at the oral:} state \emph{why} each standard is cited (what gap it closes) and which pillar it maps to. The mapping table in \S1.3 of \texttt{project.tex} is the revision aid.
+
+% ------------------------------------------------------------
+\subsection{\S1.4 Framework Architecture \ \statusdone}
+\concetto{Project authorization and scope baseline. Defining the four-pillar architecture before the pilot is the PM act of establishing a project baseline: a documented, agreed description of what will be built, against which all subsequent changes are evaluated.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{22--23}{Defining Project Success / Triple Constraint}{scope, time, cost as the baseline triangle; changing one affects the others. Locking the architecture before the pilot freezes the scope baseline.}
+  \slide{30--32}{Project Charter / Authorization}{the document that formally authorizes the project and names the sponsor. Pillar~I's governance spine plays the same role: it gives formal authority to the other three pillars.}
+  \slide{16}{Hybrid Approach}{the architecture is designed predictively; deployment is iterative. \S1.4 closes the loop from \S1.1 by making explicit where the predictive / iterative boundary sits.}
+\end{itemize}
+
+% ============================================================
+\section{Part I --- The Four Pillars}
+
+% ------------------------------------------------------------
+\subsection{\S2 Governance (Pillar I) \ \statustodo}
+\placeholder{}
+% expected: Stakeholder management + Power/Interest matrix (p.201-206), Push/Pull (p.75-76), RACI / organizational structures.
+
+% ------------------------------------------------------------
+\subsection{\S3 Human-in-the-Loop Controls (Pillar II) \ \statustodo}
+\placeholder{}
+% expected: document risk classification -> Probability-Impact (p.301-307); decision making / escalation.
+
+% ------------------------------------------------------------
+\subsection{\S4 Audit Logging and Accountability (Pillar III) \ \statustodo}
+\placeholder{}
+% expected: mainly external standards (GDPR accountability); little from the slides.
+
+% ------------------------------------------------------------
+\subsection{\S5 Risk Management (Pillar IV) \ \statustodo}
+\placeholder{The section richest in theory from the slides.}
+% expected: PMI risk framework 6-step (p.357-388); Probability-Impact matrix (p.301-307); flaw of averages + Monte Carlo (p.308-311, 351-356); EMV + Decision Tree (p.322-330); response strategies Avoid/Transfer/Mitigate/Accept (p.363); reserves and triggers (p.366-387).
+
+% ============================================================
+\section{Part I --- Adoption and Synthesis}
+
+% ------------------------------------------------------------
+\subsection{\S6 Adoption, Measurement and Business Case \ \statustodo}
+\placeholder{}
+% expected: WBS (p.84-87, 207-210); Schedule management 6-step (p.79); PERT 3-point + critical path (p.156-173); Earned Value Management (SPI/CPI); Business case 9 components + NPV/ROI (p.35).
+
+% ------------------------------------------------------------
+\subsection{\S7 Synthesis: Answering RQ1 \ \statustodo}
+\placeholder{}
+% expected: no new theory; stitches together the safe adoption criteria.
+
+% ============================================================
+\section{Part II --- RQ2: Post Office Case}
+
+% ------------------------------------------------------------
+\subsection{\S8 Case Analysis: Root Causes and Governance Gaps \ \statustodo}
+\placeholder{}
+% expected: lessons learned (p.31); eventual root-cause.
+
+% ------------------------------------------------------------
+\subsection{\S9 Applying the Framework to the Case \ \statustodo}
+\placeholder{}
+% expected: recalls the pillars already mapped above.
+
+% ------------------------------------------------------------
+\subsection{\S10 Counterfactual Analysis \ \statustodo}
+\placeholder{}
+% expected: EMV / Decision Tree (p.322-330) applied to the case: expected loss with vs without framework.
+
+% ------------------------------------------------------------
+\subsection{\S11 Answer to RQ2 \ \statustodo}
+\placeholder{}
+
+\end{document}
