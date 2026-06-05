@@ -270,28 +270,7 @@ The framework must be verifiable. Five criteria define safe adoption; the framew
 \end{enumerate}
 \end{definitionbox}
 
-Each criterion has a failure condition that triggers escalation (Table~\ref{tab:failure}).
-
-\begin{table}[H]
-\centering
-\small
-\rowcolors{2}{accentlight!30!white}{white}
-\begin{tabular}{@{} p{4.5cm} p{9cm} @{}}
-\toprule
-\textbf{\color{accentdark}Criterion} & \textbf{\color{accentdark}Failure condition (triggers escalation)} \\
-\midrule
-No unauthorized disclosure & Any unredacted or confidential content shared/published \\
-Regulatory compliance & Any document processed outside the GDPR Art.~25/32 controls \\
-Accountability \& auditability & Any document with an incomplete or missing audit record \\
-Preserved human oversight & Any high-risk document released without documented human approval \\
-Sustainable adoption & KPI targets missed beyond tolerance; systematic bypass of the process \\
-\bottomrule
-\end{tabular}
-\caption{Failure conditions for each safe-adoption criterion.}
-\label{tab:failure}
-\end{table}
-
-Each criterion is SMART: specific, measurable, attainable in the pilot, relevant, time-bound \cite{falchi_slides}.
+Each criterion has a failure condition that triggers escalation, the inverse of the criterion: any unredacted content published; any document processed outside the GDPR Art.~25/32 controls; any incomplete audit record; any high-risk release without recorded approval; KPI targets missed beyond tolerance or the process systematically bypassed. Each criterion is SMART: specific, measurable, attainable in the pilot, relevant, time-bound \cite{falchi_slides}.
 
 \subsection{Regulatory and Standards Baseline}
 \label{sec:baseline}
@@ -310,24 +289,11 @@ Three layers constrain any GenAI redaction tool: EU data-protection law, UK supe
 
 The ICO's 2025 reprimand of Post Office Limited held that publishing personal data without a documented pre-publication control breaches Art.~5(1)(f) and Art.~32 \cite{ico2025}. Its corrective requirement, a documented and auditable review process, is the origin of Pillars~II and~III, and it sets the bar: not just having a process, but proving it ran for every document.
 
-\noindent\textbf{NIST AI Risk Management Framework (AI RMF 1.0)}\par
+\noindent\textbf{NIST AI RMF (1.0)}\par
+The NIST AI RMF \cite{nist_ai_rmf} organises AI risk around four functions: \textbf{GOVERN} (policy, accountability, risk culture), \textbf{MAP} (context and potential harms), \textbf{MEASURE} (metrics and testing), \textbf{MANAGE} (response and monitoring). Pillar~I operationalises GOVERN; Pillar~IV covers MAP, MEASURE and MANAGE.
 
-The NIST AI RMF \cite{nist_ai_rmf} organises AI risk governance around four functions:
-
-\begin{itemize}
-  \item \textbf{GOVERN}: AI policies, accountability, and risk culture.
-  \item \textbf{MAP}: context, potential harms, and risk categorisation.
-  \item \textbf{MEASURE}: quantify and evaluate risks with metrics and testing.
-  \item \textbf{MANAGE}: prioritise, respond to, and monitor risks.
-\end{itemize}
-
-The framework's four pillars map directly: Pillar~I (Governance) operationalises GOVERN; Pillar~IV (Risk Management) covers MAP, MEASURE, and MANAGE.
-
-\noindent\textbf{ISO/IEC Standards}\par
-
-\textbf{ISO/IEC 42001:2023} \cite{iso42001} (AI management): pre-deployment risk assessment (Cl.~6), documented human oversight (A.6), impact evaluation on data subjects (A.9). Met by Pillars~II, III, and~IV.
-
-\textbf{ISO/IEC 27001:2022} \cite{iso27001} (information security): information classification (A.8.2), data masking (A.8.11), security policy (A.5.1). Pillar~II implements A.8.2; the audit log meets A.8.15.
+\noindent\textbf{ISO/IEC standards}\par
+\textbf{42001:2023} \cite{iso42001} (AI management): pre-deployment risk assessment (Cl.~6), documented human oversight (A.6), data-subject impact evaluation (A.9). \textbf{27001:2022} \cite{iso27001} (information security): information classification (A.8.2), data masking (A.8.11), logging (A.8.15). The pillar that meets each clause is in Table~\ref{tab:standards}.
 
 \noindent\textbf{Requirement Mapping}\par
 
@@ -375,37 +341,14 @@ Pillar~I is load-bearing: the policy mandate, the accountability hierarchy, and 
 \noindent\textbf{The Three Operational Pillars}\par
 
 \begin{itemize}
-  \item \textbf{Pillar~II: Human-in-the-Loop Controls} classifies every document into three risk tiers (standard, high, very high) and routes it through the matching review gate. The floor is \emph{standard}, not \emph{low}: every document holds personal data, so none skips review. High and very-high documents need explicit human approval; GenAI output is a first pass, not a decision.
-
-  \item \textbf{Pillar~III: Audit Logging} records every action on every document (proposals, each review step, the final decision, plus actor and timestamp) in an immutable, queryable log retained as regulatory evidence.
-
-  \item \textbf{Pillar~IV: Risk Management} keeps a living risk register for the tool, tracks residual risk after controls, triggers escalation at thresholds, and defines the manual fallback for outages.
+  \item \textbf{Pillar~II (Human-in-the-Loop)} classifies every document into three risk tiers and routes it through the matching review gate. The floor is \emph{standard}, not \emph{low}: every document holds personal data, so none skips review. High and very-high documents need explicit human approval; GenAI output is a first pass, not a decision.
+  \item \textbf{Pillar~III (Audit Logging)} records every action (proposals, each review step, the final decision, plus actor and timestamp) in an immutable, queryable log kept as regulatory evidence.
+  \item \textbf{Pillar~IV (Risk Management)} keeps a living risk register, tracks residual risk after controls, triggers escalation at thresholds, and defines the manual fallback for outages.
 \end{itemize}
 
 \noindent\textbf{Document Flow Through the Framework}\par
 
-Table~\ref{tab:docflow} shows the path from draft to publication: linear for standard documents, with high and very-high adding the approval step (Step~5) before the token is issued.
-
-\begin{table}[H]
-\centering
-\small
-\rowcolors{2}{accentlight!30!white}{white}
-\begin{tabular}{@{} c p{3.2cm} p{8.3cm} @{}}
-\toprule
-\textbf{\color{accentdark}Step} & \textbf{\color{accentdark}Actor} & \textbf{\color{accentdark}Action} \\
-\midrule
-1 & Document owner & Submits draft to the redaction workflow \\
-2 & Pillar~II system & Classifies document risk tier; routes to appropriate review queue \\
-3 & GenAI tool & Proposes redactions; confidence scores recorded in audit log (Pillar~III) \\
-4 & Human reviewer & Reviews, confirms or overrides GenAI proposals; decision recorded \\
-5 & Approval authority & \textit{(High/very-high risk only)} Signs off on final redacted version \\
-6 & Pillar~III log & Locks the complete review record; approval token generated \\
-7 & Document owner & Publishes against the approval token \\
-\bottomrule
-\end{tabular}
-\caption{Document flow from draft to publication under the framework.}
-\label{tab:docflow}
-\end{table}
+The path runs draft to publication in seven steps: submit, classify, GenAI proposal, human review, approval (high and very-high only), log-lock and token, publish. It is linear for standard documents; high and very-high insert the approval gate before the token issues. The gated version, with the control at each step, is Table~\ref{tab:workflow} in Section~\ref{sec:hitl}.
 
 \noindent\textbf{Hybrid Adoption Lifecycle}\par
 
@@ -460,24 +403,7 @@ The vendor rules close a risk nothing else can: sending text to an external mode
 
 \subsection{Decision Rights and Approval Gates}
 
-Decision rights answer one question (\emph{who may authorize external release?}); the answer rises with the risk tier (Section~\ref{sec:hitl}). No tier permits automatic release: a human must record approval before a document advances.
-
-\begin{table}[H]
-\centering
-\small
-\rowcolors{2}{accentlight!30!white}{white}
-\begin{tabular}{@{} p{2.6cm} p{4.8cm} p{6.4cm} @{}}
-\toprule
-\textbf{\color{accentdark}Risk tier} & \textbf{\color{accentdark}Release authority} & \textbf{\color{accentdark}Gate rule} \\
-\midrule
-Standard & Document owner & Owner attests review complete; token issued on attestation \\
-High & DPO, on Legal's recommendation & No release until DPO approval is recorded; the author cannot self-approve \\
-Very high & DPO \emph{and} senior management (dual control) & Two recorded approvals required; no single person can release \\
-\bottomrule
-\end{tabular}
-\caption{Decision rights and approval gates by risk tier.}
-\label{tab:decisionrights}
-\end{table}
+Decision rights answer one question (\emph{who may authorize external release?}); the answer rises with the risk tier (Section~\ref{sec:hitl}). No tier permits automatic release: a human must record approval before a document advances. The tier-by-tier mapping of release authority and gate rule is consolidated in Table~\ref{tab:risktier} (Section~\ref{sec:hitl}).
 
 A \textbf{gate} is a hard stop: no publication until the named authority records approval in the log (Pillar~III). The very-high tier adds \emph{dual control} so no single person can release the most sensitive material. These gates operationalize the ``preserved human oversight'' criterion (Section~\ref{sec:safe_adoption}).
 
@@ -541,26 +467,24 @@ The tier fixes the level of human control. Across every tier the GenAI tool only
 
 \begin{table}[H]
 \centering
-\small
+\footnotesize
 \rowcolors{2}{accentlight!30!white}{white}
-\begin{tabular}{@{} p{2.1cm} p{3.6cm} p{4.7cm} p{3.4cm} @{}}
+\begin{tabular}{@{} p{1.3cm} p{2.4cm} p{3.2cm} p{2.5cm} p{3.3cm} @{}}
 \toprule
-\textbf{\color{accentdark}Tier} & \textbf{\color{accentdark}GenAI role} & \textbf{\color{accentdark}Mandatory human control} & \textbf{\color{accentdark}Release authority} \\
+\textbf{\color{accentdark}Tier} & \textbf{\color{accentdark}GenAI role} & \textbf{\color{accentdark}Mandatory human control} & \textbf{\color{accentdark}Release authority} & \textbf{\color{accentdark}Gate rule} \\
 \midrule
-Standard & Proposes redactions; flags candidates & Document owner reviews every proposal and attests completeness & Document owner \\
-High & Proposes redactions & Independent reviewer (not the author) plus compliance check & DPO, on Legal's recommendation \\
-Very high & Proposes redactions & Independent review plus dual approval; no single-person release & DPO + senior management \\
+Standard & Proposes; flags candidates & Owner reviews every proposal and attests completeness & Document owner & Owner attests review complete; token issued on attestation \\
+High & Proposes redactions & Independent reviewer (not the author) plus compliance check & DPO, on Legal's recommendation & No release until DPO approval recorded; author cannot self-approve \\
+Very high & Proposes redactions & Independent review plus dual approval; no single-person release & DPO + senior management & Two recorded approvals; no single person can release \\
 \bottomrule
 \end{tabular}
-\caption{Human control required at each risk tier. No tier allows automatic release.}
+\caption{Tier to GenAI role, human control, release authority and gate rule. No tier allows automatic release.}
 \label{tab:risktier}
 \end{table}
 
-The lowest tier is \emph{standard}, not \emph{low}: every document is reviewed, none is exempt.
-
 \subsection{Review and Escalation Workflow}
 
-The workflow adds to the flow of Table~\ref{tab:docflow}, at each step, the control gate (what must hold before advancing) and the escalation branch.
+Table~\ref{tab:workflow} sets out the seven-step flow with, at each step, the control gate (what must hold before advancing) and the escalation branch.
 
 \begin{table}[H]
 \centering
@@ -755,7 +679,114 @@ All four strategies appear: most risks are \emph{mitigated}; vendor liability is
 % ============================================================
 \section{Adoption, Measurement and Business Case}
 \label{sec:adoption}
-\textit{[To be developed.]}
+
+A correct framework that is never embedded reduces no risk (Section~\ref{sec:safe_adoption}, criterion~5). This section makes adoption operational: a phased roadmap with go/no-go gates, the KPIs that prove the controls run, a maturity model to position progress, and the business case that justifies the spend.
+
+\subsection{Adoption Roadmap}
+
+The framework is designed predictively (all four pillars fixed before deployment) and rolled out iteratively through a controlled pilot: the hybrid lifecycle of Section~\ref{sec:architecture} \cite{falchi_slides}. Four phases, each closed by a \textbf{gate}: the next phase does not start until the exit criterion is met.
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{2.0cm} p{4.7cm} p{3.4cm} p{3.4cm} @{}}
+\toprule
+\textbf{\color{accentdark}Phase} & \textbf{\color{accentdark}Key activities} & \textbf{\color{accentdark}Deliverable} & \textbf{\color{accentdark}Gate (go/no-go)} \\
+\midrule
+1. Assess & Map document flows; baseline current risk; vendor and DPA due diligence (Pillar~I) & Risk baseline; approved vendor & DPA signed; Board mandate \\
+2. Design & Configure tiers and thresholds; build the log; write policy and RACI; train reviewers & Configured pipeline; trained reviewers & Policy approved; reviewers certified \\
+3. Pilot & Run a bounded document set live; collect KPI data; calibrate thresholds & KPI dataset; tuned thresholds & KPI targets met; zero leakage \\
+4. Scale & Extend to all publishing units; embed audit review and reporting & Org-wide rollout; steady-state KPIs & Adoption $>70\%$; sustained KPIs \\
+\bottomrule
+\end{tabular}
+\caption{Phased adoption roadmap with exit gates.}
+\label{tab:roadmap}
+\end{table}
+
+\noindent\textbf{Work breakdown and schedule.}\par
+The Design phase decomposes into four work packages \cite{falchi_slides}: (WP1) vendor contracting and DPA; (WP2) pipeline integration and log infrastructure; (WP3) policy, RACI and decision rights; (WP4) reviewer training and certification. WP1 is the longest-lead item and gates WP2, so the \textbf{critical path} runs WP1~$\to$~WP2~$\to$~Pilot. Durations on the uncertain packages (integration, training) are estimated three-point (PERT: optimistic, most likely, pessimistic) to size a realistic schedule and a time buffer ahead of the pilot gate \cite{falchi_slides}.
+
+\subsection{KPIs and Control Effectiveness}
+
+KPIs answer one question: do the controls actually operate? They split into \textbf{leading} indicators (process health, observed continuously, allowing correction before harm) and \textbf{lagging} indicators (outcomes, confirming the framework worked). Each ties to a safe-adoption criterion and feeds the Pillar~IV triggers (Section~\ref{sec:risk}).
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{3.5cm} c p{5.0cm} >{\centering\arraybackslash}p{2.6cm} @{}}
+\toprule
+\textbf{\color{accentdark}KPI} & \textbf{\color{accentdark}Type} & \textbf{\color{accentdark}Formula} & \textbf{\color{accentdark}Target} \\
+\midrule
+Pre-publication scan rate & Lead & Documents scanned / documents published & 100\% \\
+Audit completeness & Lead & Documents with a complete log / total processed & 100\% \\
+High-risk approval rate & Lead & High-risk docs with recorded DPO approval / total high-risk & 100\% \\
+Reviewer catch rate & Lead & Seeded items caught / seeded items planted & $\geq 95\%$ \\
+Average review time & Lead & Mean time from upload to approval & $<24$h \\
+User adoption rate & Lead & Active users / target users & $>70\%$ \\
+False-negative rate & Lag & Sensitive items missed / total sensitive items & $<5\%$ pilot \\
+Wrong-version incidents & Lag & Wrong document versions published & 0 \\
+Data-leakage incidents & Lag & Confirmed leakage events & 0 \\
+\bottomrule
+\end{tabular}
+\caption{KPIs, split into leading (process) and lagging (outcome) indicators.}
+\label{tab:kpis}
+\end{table}
+
+\textbf{Control effectiveness} is read from the pairing: a leading KPI on target while a lagging KPI breaches signals a control gap, not a staffing one. The catch rate (blind seeded samples, Section~\ref{sec:hitl}) is the direct test of automation bias; a breach on any lagging indicator is a trigger that escalates to the Board with the residual risk it exposes (Section~\ref{sec:risk}).
+
+\subsection{Maturity Model}
+
+A five-level model positions where an organization sits and what the pilot must move. The framework targets Level~4 by end of pilot, Level~5 at steady state.
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} c p{2.6cm} p{8.8cm} @{}}
+\toprule
+\textbf{\color{accentdark}L} & \textbf{\color{accentdark}Stage} & \textbf{\color{accentdark}Characteristic} \\
+\midrule
+1 & Ad hoc & Redaction is manual and discretionary; no policy, no record (the Post Office baseline) \\
+2 & Defined & Policy, tiers and RACI exist on paper; application is inconsistent \\
+3 & Managed & HITL gates and audit log operate for every document \\
+4 & Measured & KPIs are collected and drive threshold and workload calibration \\
+5 & Optimized & Metrics feed continuous improvement; controls self-correct on triggers \\
+\bottomrule
+\end{tabular}
+\caption{Redaction-governance maturity model.}
+\label{tab:maturity}
+\end{table}
+
+\subsection{Business Case}
+
+The case is \textbf{risk-driven, not cost-saving driven}: direct annual cost may rise, while the value is the expected loss avoided. Assume 200 externally published documents per year.
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{6.0cm} >{\raggedleft\arraybackslash}p{3.4cm} >{\raggedleft\arraybackslash}p{3.4cm} @{}}
+\toprule
+\textbf{\color{accentdark}Item} & \textbf{\color{accentdark}Manual} & \textbf{\color{accentdark}GenAI-assisted} \\
+\midrule
+Average review time & 45 min & 20 min \\
+Total review hours (at EUR 35/h) & 150 & 66.7 \\
+Human review cost & EUR 5,250 & EUR 2,334 \\
+Software / API cost & EUR 0 & EUR 10,000 \\
+\textbf{Total annual cost} & \textbf{EUR 5,250} & \textbf{EUR 12,334} \\
+\bottomrule
+\end{tabular}
+\caption{Illustrative direct-cost comparison (pilot scale).}
+\label{tab:businesscase}
+\end{table}
+
+The framework costs about EUR 7,000 more per year in direct terms. The return is on the risk side: a single publication of unredacted personal data exposes regulatory fines, compensation and reputational loss far above this figure. Treating the framework as a risk-reduction investment, it pays off when the expected loss it removes (probability of a breach $\times$ its impact) exceeds the incremental cost: the EMV logic of Section~\ref{sec:risk}. On the illustrative figures there, cutting one high-impact risk clears the EUR 7,000 delta many times over, giving a positive risk-adjusted ROI. The case-calibrated figures, anchored to the Post Office impact, are computed in the Part~II counterfactual (Section~\ref{sec:rq2_counterfactual}).
+
+\begin{principlebox}[Bottom line]
+The direct cost is the premium; the avoided expected loss is the cover. The framework is justified not by cheaper review but by the breach it prevents, which is precisely the cost the Post Office case realized.
+\end{principlebox}
 
 % ============================================================
 \section{Synthesis: The Framework for Safe Adoption}
