@@ -595,43 +595,43 @@ The project contributes by:
 \end{itemize}
 
 % ============================================================
-% PART II — RQ1 IMPLEMENTATION (SKELETON)
+% IMPLEMENTATION SKELETON — Part I of the paper (the framework)
 % Build order: skeleton first, then fill section by section.
 % Each subsection carries a % FILL: note describing intended content.
-% Remove the orientation note + [To be developed] stubs before submission.
+% Now implemented in src.tex; kept here as the design blueprint.
 % ============================================================
 \clearpage
 \begin{center}
 {\color{accentdark}\rule{\textwidth}{1.2pt}}\\[6pt]
-{\Huge\bfseries\color{accentdark} Part II}\\[8pt]
-{\LARGE\bfseries\color{accentdark!85!black} RQ1 --- A GenAI-Assisted Redaction Governance Framework}\\[8pt]
+{\Huge\bfseries\color{accentdark} Implementation Skeleton}\\[8pt]
+{\LARGE\bfseries\color{accentdark!85!black} Part~I --- A Governance Framework for Safe Adoption}\\[8pt]
 {\color{accentdark}\rule{\textwidth}{1.2pt}}
 \end{center}
 \vspace{8pt}
 
 \begin{quotebox}
-\textbf{RQ1.} How can organizations safely adopt GenAI-assisted document redaction through governance, human-in-the-loop controls, audit logging and risk management?
+\textbf{Guiding question (Part~I).} How can organizations adopt GenAI-assisted document redaction safely, through governance, human-in-the-loop controls, audit logging and risk management?
 \end{quotebox}
 
-% --- Orientation note for the author (remove before final submission) ---
+% --- Orientation note for the author ---
 \begin{tcolorbox}[
   enhanced, breakable, colback=gray!6, colframe=gray!40, boxrule=0.6pt, arc=2pt,
   left=8pt, right=8pt, top=5pt, bottom=5pt,
-  title={\bfseries How this Part answers RQ1},
+  title={\bfseries How Part~I is built},
   coltitle=gray!60!black,
   attach boxed title to top left={yshift=-2mm, xshift=6mm},
   boxed title style={colback=gray!15, arc=2pt, boxrule=0.6pt, colframe=gray!40},
 ]
-RQ1 is a \emph{design} question, so it is answered by an artefact: a governance framework plus an adoption model. The Part runs \textbf{Foundations} (define ``safe adoption'' and anchor it to standards) $\rightarrow$ the \textbf{four pillars} taken directly from the question (governance, human-in-the-loop, audit logging, risk management) $\rightarrow$ \textbf{adoption, measurement and business case} $\rightarrow$ a \textbf{synthesis} that traces the framework back to the success criteria.\\[4pt]
-\textit{Migration note: the earlier shallow proposal sections (Proposed Solution $\ldots$ Business Case) will be deepened and merged into the matching subsections below, then removed.}
+The guiding question is a \emph{design} question, so it is answered by an artefact: a governance framework plus an adoption model. Part~I runs \textbf{Foundations} (define ``safe adoption'' and anchor it to standards) $\rightarrow$ the \textbf{four pillars} taken directly from the question (governance, human-in-the-loop, audit logging, risk management) $\rightarrow$ \textbf{adoption, measurement and business case} $\rightarrow$ a \textbf{synthesis} of limitations and assumptions.\\[4pt]
+\textit{Status: this skeleton is implemented in \texttt{src.tex}; the earlier proposal sections (Proposed Solution $\ldots$ Business Case) have been deepened and merged into the matching subsections there. The Post Office case is the paper's Part~II.}
 \end{tcolorbox}
 
 % ============================================================
 \section{Framing and Foundations}
 
 \subsection{From Question to Artefact}
-% FILL: research logic — RQ1 is design-oriented; the deliverable that answers it is a framework + adoption model. State Part II structure and map each pillar to a clause of the question.
-\textit{[To be developed: research logic and structure of Part II.]}
+% FILL: research logic — the guiding question is design-oriented; the deliverable that answers it is a framework + adoption model. State Part I structure and map each pillar to a clause of the question.
+\textit{[To be developed: research logic and structure of Part I.]}
 
 \subsection{Defining ``Safe Adoption''}
 % FILL: operationalize "safe" as success criteria: (1) no unauthorized disclosure, (2) regulatory compliance (GDPR 25/32), (3) accountability & auditability, (4) preserved human oversight (no unsupervised high-risk release), (5) sustainable adoption. Define failure conditions. This becomes the yardstick reused in Synthesis.
@@ -726,11 +726,7 @@ RQ1 is a \emph{design} question, so it is answered by an artefact: a governance 
 \section{Adoption, Measurement and Business Case}
 
 \subsection{Adoption Roadmap}
-% FILL: phased rollout Assess -> Design -> Pilot -> Scale (PM lifecycle; note iterative/Agile pilot from the course). Milestones and gate criteria.
-\textit{[To be developed.]}
-
-\subsection{Change Management and Training}
-% FILL: stakeholder engagement, communication plan, training before go-live (links to the "lack of staff training" risk).
+% FILL: phased rollout Assess -> Design -> Pilot -> Scale (PM lifecycle; note iterative/Agile pilot from the course). Milestones and gate criteria. Includes the WBS / PERT / critical-path scheduling of the Design phase. (In src.tex, change management and training fold in here as WP4 + the "lack of staff training" risk R7, not a standalone subsection.)
 \textit{[To be developed.]}
 
 \subsection{KPIs and Control Effectiveness}
@@ -746,19 +742,9 @@ RQ1 is a \emph{design} question, so it is answered by an artefact: a governance 
 \textit{[To be developed: migrate from existing business case.]}
 
 % ============================================================
-\section{Synthesis: Answering RQ1}
-
-\subsection{How the Framework Achieves Safe Adoption}
-% FILL: trace the framework back to the 5 success criteria ("Defining Safe Adoption") and the standards mapping; give the explicit answer to RQ1.
-\textit{[To be developed.]}
-
-\subsection{Limitations and Assumptions}
-% FILL: scope limits, assumptions, what is not guaranteed.
-\textit{[To be developed.]}
-
-\subsection{Bridge to RQ2}
-% FILL: set up applying the framework to the Post Office Horizon case (RQ2).
-\textit{[To be developed.]}
+\section{Synthesis: Limitations and Assumptions}
+% FILL: assumptions (competent tool, engaged reviewers, vendor honours agreement, governance resourced) and limits (not zero risk, designed not validated, bounded scope). In src.tex the framework is traced back to the five safe-adoption criteria across the pillars, not in a separate "answer" section; the bridge to the Post Office case is the paper's Part II.
+\textit{[To be developed: assumptions and limits.]}
 
 % ============================================================
 % SECTION 16

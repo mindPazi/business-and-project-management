@@ -336,19 +336,19 @@ The framework is a \textbf{governance spine} (Pillar~I) giving authority to thre
 
 \noindent\textbf{The Governance Spine}\par
 
-Pillar~I is load-bearing: the policy mandate, the accountability hierarchy, and the RACI matrix that authorize the other three pillars. Without it the log is not required, the gate can be bypassed, and the register has no owner.
+Pillar~I is load-bearing: the policy mandate, the accountability hierarchy, and the RACI matrix that authorize the other three pillars (detailed in Section~\ref{sec:governance}).
 
 \noindent\textbf{The Three Operational Pillars}\par
 
 \begin{itemize}
-  \item \textbf{Pillar~II (Human-in-the-Loop)} classifies every document into three risk tiers and routes it through the matching review gate. The floor is \emph{standard}, not \emph{low}: every document holds personal data, so none skips review. High and very-high documents need explicit human approval; GenAI output is a first pass, not a decision.
-  \item \textbf{Pillar~III (Audit Logging)} records every action (proposals, each review step, the final decision, plus actor and timestamp) in an immutable, queryable log kept as regulatory evidence.
-  \item \textbf{Pillar~IV (Risk Management)} keeps a living risk register, tracks residual risk after controls, triggers escalation at thresholds, and defines the manual fallback for outages.
+  \item \textbf{Pillar~II (Human-in-the-Loop)} classifies every document into risk tiers and routes it through the matching review gate (Section~\ref{sec:hitl}).
+  \item \textbf{Pillar~III (Audit Logging)} records every action in an immutable, queryable log kept as regulatory evidence (Section~\ref{sec:audit}).
+  \item \textbf{Pillar~IV (Risk Management)} keeps a living risk register, tracks residual risk and triggers escalation at thresholds (Section~\ref{sec:risk}).
 \end{itemize}
 
 \noindent\textbf{Document Flow Through the Framework}\par
 
-The path runs draft to publication in seven steps: submit, classify, GenAI proposal, human review, approval (high and very-high only), log-lock and token, publish. It is linear for standard documents; high and very-high insert the approval gate before the token issues. The gated version, with the control at each step, is Table~\ref{tab:workflow} in Section~\ref{sec:hitl}.
+The path runs from draft to publication in seven steps, linear for standard documents and gated by an approval step before the token issues for high and very-high ones. The full gated flow, with the control at each step, is Table~\ref{tab:workflow} in Section~\ref{sec:hitl}.
 
 \noindent\textbf{Hybrid Adoption Lifecycle}\par
 
@@ -646,7 +646,7 @@ The probability/impact grid \cite{falchi_slides} shows the profile (Table~\ref{t
 \label{tab:heatmap}
 \end{table}
 
-The costliest risks are weighed by \textbf{expected monetary value} (EMV $=$ probability $\times$ impact) \cite{falchi_slides}: a control pays off when the expected loss it removes exceeds its cost. Cutting a risk from 20\% to 2\% on a EUR 500,000 impact saves EUR 90,000 a year, far above the tool's cost. Two caveats: EMV is an average and hides the tail (the flaw of averages), so the very-high tier uses dual control rather than a cost-benefit test \cite{falchi_slides}; and these figures are illustrative, the case-calibrated EMV being deferred to the Part~II counterfactual (Section~\ref{sec:counterfactual}).
+The costliest risks are weighed by \textbf{expected monetary value} (EMV $=$ probability $\times$ impact) \cite{falchi_slides}: a control pays off when the expected loss it removes exceeds its cost. Two caveats: EMV is an average and hides the tail (the flaw of averages), so the very-high tier uses dual control rather than a cost-benefit test \cite{falchi_slides}; and these figures are illustrative, the case-calibrated EMV being deferred to the Part~II counterfactual (Section~\ref{sec:counterfactual}).
 
 \subsection{Risk Responses and Residual Risk}
 
@@ -680,11 +680,11 @@ All four strategies appear: most risks are \emph{mitigated}; vendor liability is
 \section{Adoption, Measurement and Business Case}
 \label{sec:adoption}
 
-A correct framework that is never embedded reduces no risk (Section~\ref{sec:safe_adoption}, criterion~5). This section makes adoption operational: a phased roadmap with go/no-go gates, the KPIs that prove the controls run, a maturity model to position progress, and the business case that justifies the spend.
+Criterion~5 (Section~\ref{sec:safe_adoption}) makes embedded adoption part of safe adoption, not an afterthought. This section makes it operational: a phased roadmap with go/no-go gates, the KPIs that prove the controls run, a maturity model to position progress, and the business case that justifies the spend.
 
 \subsection{Adoption Roadmap}
 
-The framework is designed predictively (all four pillars fixed before deployment) and rolled out iteratively through a controlled pilot: the hybrid lifecycle of Section~\ref{sec:architecture} \cite{falchi_slides}. Four phases, each closed by a \textbf{gate}: the next phase does not start until the exit criterion is met.
+Rollout follows the hybrid lifecycle of Section~\ref{sec:architecture} \cite{falchi_slides}: four phases, each closed by a \textbf{gate}, where the next phase does not start until the exit criterion is met.
 
 \begin{table}[H]
 \centering
@@ -782,15 +782,42 @@ Software / API cost & EUR 0 & EUR 10,000 \\
 \label{tab:businesscase}
 \end{table}
 
-The framework costs about EUR 7,000 more per year in direct terms. The return is on the risk side: a single publication of unredacted personal data exposes regulatory fines, compensation and reputational loss far above this figure. Treating the framework as a risk-reduction investment, it pays off when the expected loss it removes (probability of a breach $\times$ its impact) exceeds the incremental cost: the EMV logic of Section~\ref{sec:risk}. On the illustrative figures there, cutting one high-impact risk clears the EUR 7,000 delta many times over, giving a positive risk-adjusted ROI. The case-calibrated figures, anchored to the Post Office impact, are computed in the Part~II counterfactual (Section~\ref{sec:counterfactual}).
+The framework costs about EUR 7,000 more per year in direct terms. The return is on the risk side: a single publication of unredacted personal data exposes regulatory fines, compensation and reputational loss far above this figure. Treating the framework as a risk-reduction investment, it pays off when the expected loss it removes (probability of a breach $\times$ its impact) exceeds the incremental cost: the EMV logic of Section~\ref{sec:risk}. The case-calibrated figures, anchored to the Post Office impact, are computed in the Part~II counterfactual (Section~\ref{sec:counterfactual}).
 
 \begin{principlebox}[Bottom line]
-The direct cost is the premium; the avoided expected loss is the cover. The framework is justified not by cheaper review but by the breach it prevents, which is precisely the cost the Post Office case realized.
+The direct cost is the premium; the avoided expected loss is the cover. The framework is justified not by cheaper review but by the breach it prevents.
 \end{principlebox}
 
 % ============================================================
-\section{Synthesis: Limitations and Assumptions}
+\section{Synthesis: Answering the Guiding Question}
 \label{sec:synthesis}
+
+\subsection{How the Framework Achieves Safe Adoption}
+
+Part~I asked how an organization can adopt GenAI-assisted redaction safely (Section~\ref{sec:foundations}). The answer is structural: the four pillars are engineered so that the five criteria of Section~\ref{sec:safe_adoption} hold \emph{together}, not one at a time. Table~\ref{tab:answer} traces each criterion to the mechanism that delivers it and the evidence that shows it operating.
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{3.4cm} p{7.2cm} p{3.2cm} @{}}
+\toprule
+\textbf{\color{accentdark}Criterion} & \textbf{\color{accentdark}How the framework satisfies it} & \textbf{\color{accentdark}Evidence} \\
+\midrule
+No unauthorized disclosure & Mandatory review gate on every tier; no automatic release at any tier & \S\ref{sec:hitl}, Tab.~\ref{tab:risktier} \\
+Regulatory compliance (GDPR Art.~25/32) & Policy by default plus technical and organisational measures mapped to each clause & \S\ref{sec:baseline}, Tab.~\ref{tab:standards} \\
+Accountability and auditability & Complete, immutable, traceable per-document log & \S\ref{sec:audit}, Tab.~\ref{tab:compliance} \\
+Preserved human oversight & Named approver per tier; dual control at very high; no single-person release & \S\ref{sec:governance}, Tab.~\ref{tab:risktier} \\
+Sustainable adoption & Gated roadmap, leading and lagging KPIs, and a maturity target & \S\ref{sec:adoption}, Tab.~\ref{tab:roadmap},~\ref{tab:kpis} \\
+\bottomrule
+\end{tabular}
+\caption{The five safe-adoption criteria mapped to the mechanism that delivers each and the evidence it operated.}
+\label{tab:answer}
+\end{table}
+
+No criterion depends on goodwill or on a single control: each is carried by a named pillar and evidenced in the log, and the failure condition of each (Section~\ref{sec:safe_adoption}) is itself a monitored trigger (Section~\ref{sec:risk}). The framework is therefore a coherent path to safe adoption, not a checklist, and that is the answer to the guiding question.
+
+\subsection{Limitations and Assumptions}
 
 The framework reduces risk; it does not eliminate it, and it rests on assumptions that must hold for the controls to work.
 
