@@ -789,9 +789,30 @@ The direct cost is the premium; the avoided expected loss is the cover. The fram
 \end{principlebox}
 
 % ============================================================
-\section{Synthesis: The Framework for Safe Adoption}
+\section{Synthesis: Limitations and Assumptions}
 \label{sec:synthesis}
-\textit{[To be developed.]}
+
+The framework reduces risk; it does not eliminate it, and it rests on assumptions that must hold for the controls to work.
+
+\begin{definitionbox}[]
+\textbf{Assumptions.}
+\begin{itemize}
+  \item \textbf{The GenAI tool is a competent first pass.} The design is tool-agnostic, but a weak detector raises reviewer workload rather than breaking the controls, and a strong one lowers it.
+  \item \textbf{Reviewers engage genuinely.} Automation bias is mitigated (Section~\ref{sec:hitl}), not abolished; the controls assume the trained reviewer actually looks.
+  \item \textbf{The vendor honours the agreement.} The Data Processing Agreement and no-training clause make R5 a transferred risk, reduced by contract, not removed.
+  \item \textbf{Governance is resourced.} The Board, training and audit review carry a standing cost; criterion~5 fails if it is not paid.
+\end{itemize}
+\textbf{Limits.}
+\begin{itemize}
+  \item \textbf{Not zero risk.} Residual false negatives remain (Table~\ref{tab:responses}); the claim is controlled risk, not eliminated risk.
+  \item \textbf{Designed, not yet validated.} The KPI targets are set, not demonstrated, and the cost figures are illustrative; a pilot is what would confirm them.
+  \item \textbf{Bounded scope.} This is a single-organization publication workflow, not a full software architecture, a live deployment, or legal advice.
+\end{itemize}
+\end{definitionbox}
+
+These are the boundary of the claim, not loose ends: the framework is an internally coherent, standards-anchored design whose effectiveness is argued here and would be measured in a pilot.
+
+
 
 % ============================================================
 % PART II — THE POST OFFICE HORIZON CASE
