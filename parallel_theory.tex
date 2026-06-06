@@ -134,7 +134,7 @@ This document grows in parallel with \texttt{src.tex}. For each section of the p
 \newpage
 
 % ============================================================
-\section{Part I --- RQ1: Framework}
+\section{Part I --- Framework Foundations}
 
 % ------------------------------------------------------------
 \subsection{\S1.1 Framework Overview \ \statusdone}
@@ -244,35 +244,62 @@ This document grows in parallel with \texttt{src.tex}. For each section of the p
 \textbf{Note on the maturity model (\S6.3):} a framing device (five levels, ad hoc $\to$ optimized) rather than a core slide topic; defend it as a position-and-target scale that ties back to ``Defining Project Success'' / SMART (p.~22, 38, already studied for \S1.2).
 
 % ------------------------------------------------------------
-\subsection{\S7 Synthesis: Answering RQ1 \ \statusdone}
-\concetto{Verification against the success criteria. The synthesis closes the project loop: it checks the delivered artefact (the four-pillar framework) against the criteria fixed when the work was scoped. It adds no new theory; it reuses the ``Defining Project Success'' / SMART logic already studied for \S1.2.}
+\subsection{\S7 Synthesis: Limitations and Assumptions \ \statusdone}
+\concetto{Assumptions, constraints and honest residual-risk reporting. Closing the framework means stating what must hold for the controls to work and what is not guaranteed: the project-management discipline of recording assumptions and constraints instead of overclaiming.}
 \textbf{To study (already covered in \S1.2):}
 \begin{itemize}
-  \slide{22}{Defining Project Success}{here it is the closing check, \emph{verifying} the framework against the five safe-adoption criteria rather than defining them.}
-  \slide{38}{Validating the objectives}{SMART; each criterion was made measurable in \S1.2 and is now traced to the mechanism that meets it and the KPI that evidences it (crosswalk table in \S7.1).}
+  \slide{22}{Defining Project Success}{the limits are stated against the same success criteria fixed in \S1.2: a design is judged by whether its assumptions hold, not by intent.}
+  \slide{38}{Validating the objectives}{SMART; the ``designed, not yet validated'' caveat reflects that the criteria are set and would be measured in a pilot, not yet demonstrated.}
 \end{itemize}
-\textbf{To defend at the oral:} present the synthesis as a \emph{verification}, not new design; the logic is criterion $\to$ mechanism $\to$ evidence. Be ready to give the one-line answer to RQ1 (govern the process, not the tool), to state the limitations (residual risk, designed-not-validated, bounded scope), and to explain the bridge to RQ2 (the Post Office case is the applicability test of the framework).
+\textbf{To defend at the oral:} state the assumptions (competent tool, engaged reviewers, vendor honours the agreement, governance is resourced) and the limits (not zero risk, designed not validated, bounded scope), and explain why naming them strengthens rather than weakens the design.
 
 % ============================================================
-\section{Part II --- RQ2: Post Office Case}
+\section{Part II --- The Post Office Horizon Case}
 
 % ------------------------------------------------------------
-\subsection{\S8 Case Analysis: Root Causes and Governance Gaps \ \statustodo}
-\placeholder{}
-% expected: lessons learned (p.31); eventual root-cause.
+\subsection{\S8 Case Analysis: Root Causes and Governance Gaps \ \statusdone}
+\concetto{Lessons learned and root-cause analysis. The case is read as a post-incident review: a Five Whys drill traces the breach to a missing governance layer, and every gap turns out to be an accountability or unmanaged-risk failure, not a technical one.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{31}{Lessons learned}{the post-project / post-incident review, capturing what went wrong so it is not repeated; the lens for reading the breach in \S8.}
+  \slide{65}{Authority, responsibility, accountability}{accountability is not shared; the case shows what happens when no role is Accountable for release (root cause behind R8).}
+  \slide{70--73}{Responsibility matrix / RACI}{a missing single-Accountable assignment is one of the root causes; \S8 maps each gap to the control that closes it.}
+  \slide{357--362}{PMI risk management: identify}{risk identification; the breach is a risk that was never identified or managed (it maps to register risks R1, R2, R4, R8).}
+\end{itemize}
 
 % ------------------------------------------------------------
-\subsection{\S9 Applying the Framework to the Case \ \statustodo}
-\placeholder{}
-% expected: recalls the pillars already mapped above.
+\subsection{\S9 Applying the Framework to the Case \ \statusdone}
+\concetto{No new theory: \S9 replays the four pillars (already mapped in \S2 to \S5) against the case document. Revise each pillar's slides; the anchors, in ascending order, are listed below.}
+\textbf{To study (reused from \S2 to \S5):}
+\begin{itemize}
+  \slide{44}{Decision-making and escalation}{Pillar~II: the very-high tier triggers structured escalation and dual approval (\S9.2).}
+  \slide{65}{Authority, responsibility, accountability}{Pillar~I: the case gains a single Accountable owner for release (\S9.1).}
+  \slide{70--73}{RACI}{Pillar~I: the matrix that names who approves the very-high document (\S9.1).}
+  \slide{201--206}{Stakeholder / Power-Interest grid}{Pillar~I: DPO and senior management as the high-power approvers (\S9.1).}
+  \slide{301--307}{Probability/Impact matrix}{Pillar~II and IV: the $3\times3\times3=27$ classification and the materialized register risks (\S9.2, \S9.4).}
+  \slide{357--388}{PMI risk management process}{Pillar~IV: responses and monitoring triggers acting on R1, R2, R4, R8 (\S9.4).}
+\end{itemize}
+\textbf{Note:} Pillar~III (audit logging, \S9.3) rests on external regulation (GDPR Art.~5(2); ICO reprimand), not the slides, exactly as in \S4.
 
 % ------------------------------------------------------------
-\subsection{\S10 Counterfactual Analysis \ \statustodo}
-\placeholder{}
-% expected: EMV / Decision Tree (p.322-330) applied to the case: expected loss with vs without framework.
+\subsection{\S10 Counterfactual Analysis \ \statusdone}
+\concetto{Expected Monetary Value on a decision tree. The publication step is modelled as a decision node (control on / off) leading to chance nodes (breach / no breach); EMV $=$ probability $\times$ impact folds the tree back. The flaw of averages explains why the tail, not the mean, justifies dual control.}
+\textbf{To study:}
+\begin{itemize}
+  \slide{301--307}{Probability/Impact matrix}{the probability and impact inputs feeding the EMV (20\% vs 2\%; EUR 500,000 impact).}
+  \slide{308--311}{Flaw of averages}{why an EMV mean understates a low-frequency, catastrophic outcome; the Post Office event is that tail.}
+  \slide{322--330}{Expected Monetary Value / decision tree}{the core method of \S10: EMV with vs without the framework, net of incremental cost.}
+  \slide{351--356}{Monte Carlo / distribution thinking}{reinforces the tail argument behind the very-high gate (dual control rather than a cost-benefit test).}
+\end{itemize}
 
 % ------------------------------------------------------------
-\subsection{\S11 Answer to RQ2 \ \statustodo}
-\placeholder{}
+\subsection{\S11 Synthesis: Lessons from the Case \ \statusdone}
+\concetto{Synthesis, no new theory. \S11 draws four generalizable lessons from the case; it reuses the lessons-learned framing (p.31) from \S8 and the ``Defining Project Success'' lens (p.22) to close the argument.}
+\textbf{To study (already covered):}
+\begin{itemize}
+  \slide{22}{Defining Project Success}{the closing check: the framework removes the root causes and cuts expected cost, the test of whether the case is resolved.}
+  \slide{31}{Lessons learned}{the four generalizable lessons are the formal lessons-learned output of the case review.}
+\end{itemize}
+\textbf{To defend at the oral:} give the one-line takeaway (refuse to publish without a classified, approved and logged decision; the gate matters more than the model), then the four lessons (redaction is governance; gate over model; accountability before the incident; auditability proves the process ran).
 
 \end{document}

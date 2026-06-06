@@ -646,7 +646,7 @@ The probability/impact grid \cite{falchi_slides} shows the profile (Table~\ref{t
 \label{tab:heatmap}
 \end{table}
 
-The costliest risks are weighed by \textbf{expected monetary value} (EMV $=$ probability $\times$ impact) \cite{falchi_slides}: a control pays off when the expected loss it removes exceeds its cost. Cutting a risk from 20\% to 2\% on a EUR 500,000 impact saves EUR 90,000 a year, far above the tool's cost. Two caveats: EMV is an average and hides the tail (the flaw of averages), so the very-high tier uses dual control rather than a cost-benefit test \cite{falchi_slides}; and these figures are illustrative, the case-calibrated EMV being deferred to the Part~II counterfactual (Section~\ref{sec:rq2_counterfactual}).
+The costliest risks are weighed by \textbf{expected monetary value} (EMV $=$ probability $\times$ impact) \cite{falchi_slides}: a control pays off when the expected loss it removes exceeds its cost. Cutting a risk from 20\% to 2\% on a EUR 500,000 impact saves EUR 90,000 a year, far above the tool's cost. Two caveats: EMV is an average and hides the tail (the flaw of averages), so the very-high tier uses dual control rather than a cost-benefit test \cite{falchi_slides}; and these figures are illustrative, the case-calibrated EMV being deferred to the Part~II counterfactual (Section~\ref{sec:counterfactual}).
 
 \subsection{Risk Responses and Residual Risk}
 
@@ -782,7 +782,7 @@ Software / API cost & EUR 0 & EUR 10,000 \\
 \label{tab:businesscase}
 \end{table}
 
-The framework costs about EUR 7,000 more per year in direct terms. The return is on the risk side: a single publication of unredacted personal data exposes regulatory fines, compensation and reputational loss far above this figure. Treating the framework as a risk-reduction investment, it pays off when the expected loss it removes (probability of a breach $\times$ its impact) exceeds the incremental cost: the EMV logic of Section~\ref{sec:risk}. On the illustrative figures there, cutting one high-impact risk clears the EUR 7,000 delta many times over, giving a positive risk-adjusted ROI. The case-calibrated figures, anchored to the Post Office impact, are computed in the Part~II counterfactual (Section~\ref{sec:rq2_counterfactual}).
+The framework costs about EUR 7,000 more per year in direct terms. The return is on the risk side: a single publication of unredacted personal data exposes regulatory fines, compensation and reputational loss far above this figure. Treating the framework as a risk-reduction investment, it pays off when the expected loss it removes (probability of a breach $\times$ its impact) exceeds the incremental cost: the EMV logic of Section~\ref{sec:risk}. On the illustrative figures there, cutting one high-impact risk clears the EUR 7,000 delta many times over, giving a positive risk-adjusted ROI. The case-calibrated figures, anchored to the Post Office impact, are computed in the Part~II counterfactual (Section~\ref{sec:counterfactual}).
 
 \begin{principlebox}[Bottom line]
 The direct cost is the premium; the avoided expected loss is the cover. The framework is justified not by cheaper review but by the breach it prevents, which is precisely the cost the Post Office case realized.
@@ -832,37 +832,122 @@ These are the boundary of the claim, not loose ends: the framework is an interna
 
 % ============================================================
 \section{Case Analysis: Root Causes and Governance Gaps}
-\label{sec:rq2_case}
-\textit{[To be developed.]}
+\label{sec:case_analysis}
+
+In 2024, Post Office Limited published an unredacted legal settlement document on its public website. The file carried the names and addresses of hundreds of claimants in the Horizon group litigation, and it stayed publicly reachable until it was noticed and removed \cite{guardian2024}. In 2025 the Information Commissioner's Office issued a reprimand, finding that the organization had not put in place appropriate technical and organisational measures, the standard required by GDPR Art.~32 \cite{ico2025}.
+
+Read as a project-management failure rather than a typing slip, the breach is instructive: a single routine action (uploading a file) produced irreversible public disclosure because nothing stood between that action and the public web. The proximate cause was a wrong-file upload; the root cause was the absence of a governance layer. A short root-cause drill makes the gap explicit.
+
+\begin{definitionbox}[Root-Cause Drill (Five Whys)]
+\begin{enumerate}
+  \item \textbf{Why was personal data exposed?} An unredacted version of the document was published.
+  \item \textbf{Why was an unredacted version published?} The wrong file was uploaded and nothing checked it before release.
+  \item \textbf{Why did nothing check it?} There was no mandatory pre-publication redaction review.
+  \item \textbf{Why was there no review?} Publication carried no sensitivity classification and no approval gate.
+  \item \textbf{Why was there no gate?} No role was accountable for redaction governance.
+\end{enumerate}
+\textbf{Root cause:} no governance layer (classification, mandatory review, approval gate, audit) sat between an individual's action and irreversible public disclosure.
+\end{definitionbox}
+
+Each ``why'' is a control the framework supplies. Table~\ref{tab:rootcause} maps the observed failures to the governance gap behind each one and to the pillar that closes it. The case is, in effect, a live realization of four risks already in the Part~I register (Table~\ref{tab:riskregister}): R2 (wrong version), R4 (cannot demonstrate compliance), R8 (unclear accountability), and an uncontrolled R1 (sensitive data never detected, because it was never scanned).
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{4.4cm} p{5.4cm} p{3.8cm} @{}}
+\toprule
+\textbf{\color{accentdark}What happened} & \textbf{\color{accentdark}Governance gap (root cause)} & \textbf{\color{accentdark}Missing control} \\
+\midrule
+Unredacted version published & No mandatory pre-publication redaction review & Pillar~II review gate \\
+Wrong file version uploaded & No version control or pre-publication check & Pillar~II classification; Pillar~III token \\
+Top-sensitivity document treated as routine & No document classification or risk scoring & Pillar~II risk tiers \\
+Released by one person, no sign-off & No decision rights or approval gate for high-risk release & Pillar~I decision rights; Pillar~II gate \\
+Could not show a controlled process & No audit trail of who did what, and when & Pillar~III audit log \\
+No owner answerable for the outcome & Accountability never assigned & Pillar~I RACI and governance spine \\
+\bottomrule
+\end{tabular}
+\caption{Post Office Horizon document breach: observed failures, root causes and the missing controls.}
+\label{tab:rootcause}
+\end{table}
+
+The pattern is consistent: every gap is organizational, not technical. No new software was required to prevent this breach, only a governed process. That is the lesson the framework operationalizes \cite{falchi_slides}.
 
 % ============================================================
 \section{Applying the Framework to the Case}
-\label{sec:rq2_apply}
+\label{sec:apply_framework}
+
+This section runs the same document through the framework, pillar by pillar, and marks the point at which each control would have stopped the breach. The input is a litigation settlement holding the personal data of hundreds of claimants, intended for the public web: the highest-stakes case the framework is designed for.
 
 \subsection{Governance Controls (Pillar I)}
-\textit{[To be developed.]}
+
+The document falls squarely inside the redaction policy's scope (an external, public release of personal data), so the process is not optional. Decision rights place a public release of litigation data in the very-high tier, where authority sits with the DPO plus senior management under dual control (Section~\ref{sec:governance}): no single employee may release it. The RACI matrix (Table~\ref{tab:raci}) names an Accountable owner for the release, so ``upload'' can no longer be the final act of one person. The gap behind R8 closes here: the decision acquires an owner and a gate.
 
 \subsection{Human-in-the-Loop Controls (Pillar II)}
-\textit{[To be developed.]}
+
+Classification is decisive. Scoring the document on the Section~\ref{sec:hitl} scale gives Sensitivity~$3$ (litigation and special-category data) $\times$ Exposure~$3$ (hundreds of subjects) $\times$ Audience~$3$ (public web) $=27$, the maximum, and the public-audience override would floor it at high even if the score were lower. That tier mandates independent review plus dual approval, with no automatic release (Table~\ref{tab:risktier}). Because the reviewer sees the source document beside the proposals and must positively clear it (Section~\ref{sec:hitl}), an unredacted file is not a clean-looking pass: the exposed names and addresses are exactly what the reviewer is required to catch. The wrong version cannot reach the publication path, because publication is blocked without an approval token (step~7 of Table~\ref{tab:workflow}).
 
 \subsection{Audit Logging (Pillar III)}
-\textit{[To be developed.]}
+
+Every step leaves a record: who classified the document, who reviewed it, what was changed, who approved it, the version hash and the timestamps (Section~\ref{sec:audit}). Publication is impossible without an approval token bound to a complete log entry, which forecloses the wrong-version upload at the technical level. Crucially, this is the precise gap the ICO penalized: instead of being unable to show a controlled process, the organization could answer the regulator with the full decision trail for the document, satisfying the accountability duty of GDPR Art.~5(2). R4 closes here.
 
 \subsection{Risk Management (Pillar IV)}
-\textit{[To be developed.]}
+
+The case is a materialized draw from the register (Section~\ref{sec:risk}): R2, R4 and R8 occurring together, with R1 left uncontrolled. The framework's responses target each one directly: version hash and token-gated publication (R2), the immutable log (R4), RACI and decision rights (R8), and mandatory classified review (R1). In monitoring terms, the ``released-without-approval'' trigger would have fired before disclosure, and the wrong-version-incident KPI (target~$0$, Table~\ref{tab:kpis}) would have flagged the event. The residual risk is a reviewer clearing a genuinely mislabelled file despite dual control: small, and itself surfaced by the audit review.
 
 % ============================================================
 \section{Counterfactual Analysis}
-\label{sec:rq2_counterfactual}
+\label{sec:counterfactual}
 
-% What would have changed if the framework had been in place?
-\textit{[To be developed: for each root cause identified in \S\ref{sec:rq2_case}, show which framework control would have prevented or mitigated it.]}
+Section~\ref{sec:apply_framework} shows the framework would have blocked the breach qualitatively. This section asks the quantitative question a manager would: what is the expected annual loss with and without the framework, and does the difference justify the cost? It is the case-calibrated version of the expected-monetary-value sketch deferred from Sections~\ref{sec:risk} and~\ref{sec:adoption} \cite{falchi_slides}.
+
+\noindent\textbf{Modelling the decision.}\par
+The publication step is a decision node with two branches, control on or control off, each leading to a chance node where a breach either occurs or does not. Folding the tree back on expected value needs two inputs: the probability of a publication-stage breach per year and its impact. Both are illustrative, chosen consistently with the Part~I figures; what matters is the structure and the order of magnitude, not precision (Section~\ref{sec:synthesis}).
+
+\noindent\textbf{Impact.}\par
+A serious public disclosure of special-category data for hundreds of subjects carries regulatory exposure (a reprimand in this case, with fines available in principle), remediation and notification cost, possible compensation, and reputational damage. Aggregated, an illustrative EUR 500,000 per event is conservative against the GDPR maximum.
+
+\noindent\textbf{Probability.}\par
+For an organization publishing roughly 200 sensitive documents a year with no pre-publication gate, an annual probability of one serious slip on the order of 20\% is plausible, and the Post Office outcome shows the event is far from hypothetical. The framework's mandatory classification, dual-approval gate and token reduce this to a residual of about 2\% (reviewer error despite the controls).
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{accentlight!30!white}{white}
+\begin{tabular}{@{} p{5.6cm} >{\centering\arraybackslash}p{2.6cm} >{\raggedleft\arraybackslash}p{2.4cm} >{\raggedleft\arraybackslash}p{2.6cm} @{}}
+\toprule
+\textbf{\color{accentdark}Scenario} & \textbf{\color{accentdark}Breach prob./yr} & \textbf{\color{accentdark}Impact} & \textbf{\color{accentdark}EMV (loss/yr)} \\
+\midrule
+Without framework (status quo) & 20\% & EUR 500,000 & EUR 100,000 \\
+With framework & 2\% & EUR 500,000 & EUR 10,000 \\
+\textbf{Expected loss avoided} & & & \textbf{EUR 90,000} \\
+Less incremental cost (Table~\ref{tab:businesscase}) & & & (EUR 7,000) \\
+\textbf{Net expected annual benefit} & & & \textbf{EUR 83,000} \\
+\bottomrule
+\end{tabular}
+\caption{Expected-monetary-value counterfactual: expected annual loss with and without the framework (illustrative figures).}
+\label{tab:emv}
+\end{table}
+
+On expected value, the framework returns about EUR 83,000 a year against a roughly EUR 7,000 incremental cost: a risk-adjusted payback many times over, and the deferred answer to the Part~I business case (Section~\ref{sec:adoption}).
+
+\noindent\textbf{Why the average understates the case.}\par
+EMV is a mean, and a mean hides the tail, the flaw of averages \cite{falchi_slides}. The danger here is not a steady drip of EUR 100,000 a year; it is the single catastrophic disclosure, which is exactly the event that occurred. A risk that is low-frequency but irreversible is not adequately governed by a cost-benefit average, which is why the very-high tier uses dual control rather than an EMV test (Section~\ref{sec:risk}): the framework is justified not only because expected value is positive, but because the tail outcome is one the organization cannot accept. The Post Office case is that tail outcome made real.
 
 % ============================================================
 \section{Synthesis: Lessons from the Case}
-\label{sec:rq2_synthesis}
-\textit{[To be developed.]}
+\label{sec:lessons}
 
+Four lessons generalize beyond this case:
+
+\begin{itemize}
+  \item \textbf{Redaction is a governance problem.} The failure was the absence of decision rights, a gate and a record, not the absence of a better tool (Section~\ref{sec:case_analysis}).
+  \item \textbf{The gate matters more than the model.} Even without GenAI, a mandatory classified review with approval and logging would have prevented the breach; GenAI lowers the cost of doing this at scale, it does not replace it.
+  \item \textbf{Accountability must be assigned before the incident.} A named Accountable owner and dual control for the top tier remove the single point of failure the case exposed.
+  \item \textbf{Auditability is what proves the process ran.} The ICO penalized the inability to demonstrate control; an immutable log turns ``we have a process'' into evidence (GDPR Art.~5(2)).
+\end{itemize}
+
+\newpage
 % ============================================================
 % REFERENCES
 % ============================================================
@@ -896,6 +981,11 @@ International Organization for Standardization.
 Information Commissioner's Office.
 \textit{Post Office Limited Reprimand}.
 2025.
+
+\bibitem{guardian2024}
+The Guardian.
+\textit{Post Office accidentally leaks names and addresses of wrongfully convicted operators}.
+2024.
 
 \end{thebibliography}
 
