@@ -21,7 +21,7 @@ score. Requires PyMuPDF (`pip install pymupdf`).
 ## What it produces (in `output/`)
 
 | File | Pillar | Shows |
-|------|--------|-------|
+| --- | --- | --- |
 | `redacted_document.pdf` | II | the document with PII / financial data removed (black bars) |
 | `audit_log.json` | III | hash-chained record, 4 field groups, publication BLOCKED |
 | console report | II / IV | risk score, mandated human controls, byte-level leak check |
