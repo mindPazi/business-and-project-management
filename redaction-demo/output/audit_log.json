@@ -1,0 +1,110 @@
+[
+  {
+    "document_identity": {
+      "document_id": "SAMPLE_INCIDENT_REPORT",
+      "type": "incident_memorandum",
+      "version_hash": "0bef20d11de9fd99",
+      "owner": "Helen Brooks (Compliance)",
+      "intended_audience": "public",
+      "classification_tier": "very high"
+    },
+    "detection": {
+      "model": "redaction-demo/regex-detector-v1",
+      "categories_detected": [
+        "ACCOUNT_NO",
+        "DOB",
+        "EMAIL",
+        "IBAN",
+        "MONEY",
+        "NI_NUMBER",
+        "PERSON",
+        "PHONE",
+        "POSTCODE",
+        "SORT_CODE"
+      ],
+      "items": [
+        {
+          "category": "EMAIL",
+          "offset": 170
+        },
+        {
+          "category": "PHONE",
+          "offset": 207
+        },
+        {
+          "category": "PERSON",
+          "offset": 469
+        },
+        {
+          "category": "DOB",
+          "offset": 501
+        },
+        {
+          "category": "NI_NUMBER",
+          "offset": 540
+        },
+        {
+          "category": "MONEY",
+          "offset": 642
+        },
+        {
+          "category": "SORT_CODE",
+          "offset": 731
+        },
+        {
+          "category": "ACCOUNT_NO",
+          "offset": 741
+        },
+        {
+          "category": "IBAN",
+          "offset": 771
+        },
+        {
+          "category": "POSTCODE",
+          "offset": 858
+        },
+        {
+          "category": "PERSON",
+          "offset": 892
+        },
+        {
+          "category": "EMAIL",
+          "offset": 914
+        },
+        {
+          "category": "PHONE",
+          "offset": 941
+        }
+      ],
+      "scan_timestamp": "2026-06-08T14:33:50.430280+00:00"
+    },
+    "decision": {
+      "reviewer": "PENDING -- human-in-the-loop gate not yet cleared",
+      "redaction_profile": "pdf-true-redaction",
+      "data_subjects_affected": [
+        "Mr Samuel Okafor",
+        "Mrs Priya Nandakumar"
+      ],
+      "completeness_attestation": false,
+      "escalation_flag": true
+    },
+    "disposition": {
+      "approver": null,
+      "approval": null,
+      "approval_token": null,
+      "publication_status": "BLOCKED -- no valid token",
+      "redacted_version_hash": "659e9f7231ed7abc"
+    },
+    "risk_assessment": {
+      "sensitivity": 3,
+      "exposure": 2,
+      "audience": 3,
+      "score": 18,
+      "tier_floored_to_high": false,
+      "required_human_control": "Independent review plus dual approval; no single-person release",
+      "release_authority": "DPO + senior management"
+    },
+    "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "entry_hash": "43fc9602caf70f4bb17a7d6e9aed55afd77d894295e6e96cdf8b7893f559d685"
+  }
+]

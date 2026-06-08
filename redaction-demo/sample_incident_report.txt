@@ -1,0 +1,22 @@
+Internal Incident Memorandum
+Branch Accounting Review
+Reference: NRN-2024-0117
+
+Prepared by: Helen Brooks (Compliance Analyst), helen.brooks@northgate-retail.co.uk, +44 7700 900118
+Reviewed by: David Aldridge, Regional Operations Manager
+
+SUMMARY
+
+Between March 2023 and January 2024 the branch accounting system reported a recurring shortfall at the Wexley High Street branch. The shortfall was attributed to the sub-postmaster, Mr Samuel Okafor (date of birth 14/06/1971), National Insurance number JT 60 84 92 C, who managed the branch under contract.
+
+Mr Okafor was asked to make good a shortfall of GBP 27,450.00 from personal funds. Repayments were debited from his account at sort code 20-45-71, account number 38291045, IBAN GB29 NWBK 6016 1331 9268 19. His home address of record is 14 Marlow Crescent, Wexley, WX3 7QH.
+
+A second sub-postmaster, Mrs Priya Nandakumar (priya.n@wexley-post.co.uk, +44 7700 900207), reported the same discrepancy pattern at the adjacent branch and was placed under review on the same basis.
+
+FINDINGS
+
+The review team did not, at the time, consider whether the accounting platform itself could generate phantom shortfalls. No independent technical audit was commissioned before recovery action began against the named individuals.
+
+RECOMMENDATION
+
+This memorandum is intended for release on the company public investor-relations portal as part of the annual transparency report. Names and account details are included to demonstrate the scope of the recovery programme.
