@@ -20,6 +20,8 @@
 \usepackage{parskip}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
 % ============================================================
 % COLOR PALETTE
@@ -454,12 +456,12 @@ Classification is the first control and runs on \emph{every} document. Three fac
 \begin{definitionbox}[Risk Score $=$ Sensitivity $\times$ Exposure $\times$ Audience]
 \begin{itemize}
   \item \textbf{Sensitivity}: the data categories present: 1~$=$ routine business; 2~$=$ personal data; 3~$=$ special-category, financial or litigation data.
-  \item \textbf{Exposure}: the number of data subjects affected: 1~$=$ few; 2~$=$ tens; 3~$=$ hundreds or more.
+  \item \textbf{Exposure}: the number of data subjects affected: 1~$=$ a single subject; 2~$=$ a small group (2--99); 3~$=$ 100 or more.
   \item \textbf{Audience}: the reach on release: 1~$=$ internal; 2~$=$ a named external party; 3~$=$ the public web.
 \end{itemize}
 \end{definitionbox}
 
-The score (1 to 27) maps to the three tiers of Section~\ref{sec:architecture}: \textbf{standard} ($\leq 4$), \textbf{high} ($6$ to $12$), \textbf{very high} ($\geq 18$). Override: any \emph{public} document (Audience~$=3$) is floored at \textbf{high}, since public release is irreversible. The Post Office document scored the maximum ($3\times3\times3=27$); Part~II shows the framework would have flagged it very high.
+The score (1 to 27) maps to the three tiers of Section~\ref{sec:architecture}: \textbf{standard} ($\leq 4$), \textbf{high} ($6$ to $12$), \textbf{very high} ($\geq 18$) --- the score-and-threshold logic the course applies in its Probability and Impact Matrix \cite{falchi_slides}. Override: any \emph{public} document (Audience~$=3$) is floored at \textbf{high}, since public release is irreversible. The Post Office document scored the maximum ($3\times3\times3=27$); Part~II shows the framework would have flagged it very high.
 
 \subsection{Risk-Tier to Control Matrix}
 
@@ -512,13 +514,13 @@ Table~\ref{tab:workflow} sets out the seven-step flow with, at each step, the co
 The weak point of any human-in-the-loop design is \emph{automation bias}: if reviewers rubber-stamp the tool, the gate is theatre and the over-reliance risk (Section~\ref{sec:risk}) materializes. Four choices counter it:
 
 \begin{itemize}
-  \item \textbf{Show the original, not just the result.} The reviewer sees the source document beside the proposals, so a \emph{missing} redaction is visible rather than hidden in clean-looking output.
+  \item \textbf{Show the original, not just the result.} The reviewer sees the source document beside the proposals, so a \emph{missing} redaction is visible rather than hidden in clean-looking output --- the course's survivorship-bias lesson \cite{falchi_slides}: the decisive evidence is what is \emph{not} shown, so look hardest where the tool reports nothing.
   \item \textbf{Make confirmation an act, not a default.} The reviewer positively confirms each proposed redaction, and a ``no sensitive data'' outcome requires an explicit attestation: a recorded decision, never a silent pass.
   \item \textbf{Measure catch rate.} Blind quality samples (documents seeded with known sensitive items) test whether reviewers catch what the tool misses; the catch rate is a KPI (Section~\ref{sec:adoption}).
   \item \textbf{Gate on competence.} Only trained reviewers are provisioned, and high-risk review requires additional training, the control for the ``lack of staff training'' risk.
 \end{itemize}
 
-In PM terms, classification is probability/impact prioritization and escalation is structured decision-making \cite{falchi_slides}.
+In PM terms, classification is Probability-and-Impact-Matrix prioritization and escalation is structured decision-making \cite{falchi_slides}.
 
 % ============================================================
 \section{Audit Logging and Accountability (Pillar III)}
@@ -583,7 +585,7 @@ The log is reviewed, not just retained: monthly, the DPO reviews a sample plus \
 \section{Risk Management (Pillar IV)}
 \label{sec:risk}
 
-Pillar~IV manages the risk of the tool itself. Automation removes some risk (human inconsistency, volume misses) and adds new risk (automation bias, vendor exposure, false confidence). The PMI process identifies, scores, treats, and monitors it \cite{falchi_slides}.
+Pillar~IV manages the risk of the tool itself. Automation removes some risk (human inconsistency, volume misses) but adds new, \emph{secondary} risks \cite{falchi_slides}: automation bias, vendor exposure, false confidence. The PMI process identifies, scores, treats, and monitors them \cite{falchi_slides}.
 
 \subsection{Risk Management Approach}
 
@@ -592,41 +594,41 @@ The PMI process has six steps, and each already has a home in the framework rath
 \begin{itemize}
   \item \textbf{Plan}: the redaction policy and this pillar's method (Pillar~I).
   \item \textbf{Identify}: the risk register below.
-  \item \textbf{Qualitative analysis}: the probability/impact heat map.
-  \item \textbf{Quantitative analysis}: expected monetary value for the costliest risks.
+  \item \textbf{Qualitative analysis}: the Probability and Impact Matrix \cite{falchi_slides}.
+  \item \textbf{Quantitative analysis}: EMV and a decision tree for the costliest risks \cite{falchi_slides}.
   \item \textbf{Plan responses}: one of avoid / transfer / mitigate / accept per risk, mapped to Pillars I, II and III.
   \item \textbf{Monitor \& control}: the audit review (Pillar~III) and KPIs (Section~\ref{sec:adoption}), with defined triggers.
 \end{itemize}
 
 \subsection{Risk Register}
 
-Each risk carries an ID, category, and root cause, so responses target causes. P and I are \emph{inherent} ratings (pre-control); residuals are in Table~\ref{tab:responses}.
+Each risk is written in the course's \emph{cause--risk--effect} formulation \cite{falchi_slides}; the category column is the project's Risk Breakdown Structure (RBS), so responses target causes. P and I are \emph{inherent} ratings (pre-control); residuals are in Table~\ref{tab:responses}.
 
 \begin{table}[H]
 \centering
-\small
+\footnotesize
 \rowcolors{2}{accentlight!30!white}{white}
-\begin{tabular}{@{} c p{2.2cm} p{3.8cm} p{3.8cm} c c @{}}
+\begin{tabular}{@{} c p{2.3cm} p{2.5cm} p{3.0cm} p{2.9cm} c c @{}}
 \toprule
-\textbf{\color{accentdark}ID} & \textbf{\color{accentdark}Category} & \textbf{\color{accentdark}Risk} & \textbf{\color{accentdark}Root cause} & \textbf{\color{accentdark}P} & \textbf{\color{accentdark}I} \\
+\textbf{\color{accentdark}ID} & \textbf{\color{accentdark}Category (RBS)} & \textbf{\color{accentdark}Cause} & \textbf{\color{accentdark}Risk (uncertain event)} & \textbf{\color{accentdark}Effect} & \textbf{\color{accentdark}P} & \textbf{\color{accentdark}I} \\
 \midrule
-R1 & Detection & Sensitive data not detected (false negative) & Model limits; novel data formats & M & H \\
-R2 & Process & Wrong document version published & No version control; manual handling & M & H \\
-R3 & Human factor & Over-reliance on AI (automation bias) & Reviewer defers to the tool & M & H \\
-R4 & Compliance & Cannot demonstrate compliance & No persistent record of decisions & M & H \\
-R5 & Vendor / data & Document text exposed to external AI vendor & Text sent off-premise for inference & M & H \\
-R6 & Quality & Excess false positives erode trust and throughput & Conservative model tuning & H & M \\
-R7 & Organizational & Staff untrained; process bypassed & Rushed rollout & M & M \\
-R8 & Governance & Unclear accountability for release & No defined decision rights & M & H \\
+R1 & Detection & Model limits; novel data formats & Sensitive data not detected (false negative) & Unredacted PII published & M & H \\
+R2 & Process & No version control; manual handling & Wrong document version published & Outdated, uncontrolled disclosure & M & H \\
+R3 & Human factor & Reviewer defers to the tool & Over-reliance on AI (automation bias) & Tool misses pass unchecked & M & H \\
+R4 & Compliance & No persistent record of decisions & Cannot demonstrate compliance & Regulatory finding; no defence & M & H \\
+R5 & Vendor / data & Text sent off-premise for inference & Document text exposed to external vendor & Secondary data breach & M & H \\
+R6 & Quality & Conservative model tuning & Excess false positives & Overprocessing; eroded trust & H & M \\
+R7 & Organizational & Rushed rollout & Staff untrained; process bypassed & Controls not applied & M & M \\
+R8 & Governance & No defined decision rights & Unclear accountability for release & No owner, no gate & M & H \\
 \bottomrule
 \end{tabular}
-\caption{Risk register (inherent probability P and impact I, before controls).}
+\caption{Risk register in cause--risk--effect form (inherent probability P and impact I, before controls).}
 \label{tab:riskregister}
 \end{table}
 
 \subsection{Qualitative and Quantitative Analysis}
 
-The probability/impact grid \cite{falchi_slides} shows the profile (Table~\ref{tab:heatmap}). The cluster in the medium-probability / high-impact cell justifies a control-heavy framework: these risks are neither rare nor mild.
+The \textbf{Probability and Impact Matrix} \cite{falchi_slides} shows the profile (Table~\ref{tab:heatmap}). The cluster in the medium-probability / high-impact cell justifies a control-heavy framework: these risks are neither rare nor mild.
 
 \begin{table}[H]
 \centering
@@ -642,11 +644,11 @@ The probability/impact grid \cite{falchi_slides} shows the profile (Table~\ref{t
 \textbf{Low}    & \cellcolor{heatlow} & \cellcolor{heatlow} & \cellcolor{heatmed} \\
 \bottomrule
 \end{tabular}
-\caption{Probability/impact heat map of the inherent risk register.}
+\caption{Probability and Impact Matrix of the inherent risk register.}
 \label{tab:heatmap}
 \end{table}
 
-The costliest risks are weighed by \textbf{expected monetary value} (EMV $=$ probability $\times$ impact) \cite{falchi_slides}: a control pays off when the expected loss it removes exceeds its cost. Two caveats: EMV is an average and hides the tail (the flaw of averages), so the very-high tier uses dual control rather than a cost-benefit test \cite{falchi_slides}; and these figures are illustrative, the case-calibrated EMV being deferred to the Part~II counterfactual (Section~\ref{sec:counterfactual}).
+The costliest risks are weighed by \textbf{expected monetary value} (EMV~$=$~probability~$\times$~impact, summed over the register) and a decision tree whose branches are compared on EMV \cite{falchi_slides} --- the very tools the course applies to regulatory, compliance and litigation risk, which is precisely this domain. A control pays off when the expected loss it removes exceeds its cost. Two caveats: EMV is an average, and an average hides the tail (the flaw of averages), so moving \emph{from average values to distributions} by Monte Carlo simulation is what would reveal it \cite{falchi_slides}; this is why the very-high tier uses dual control rather than a cost-benefit test. These figures are illustrative, the case-calibrated EMV being deferred to the Part~II counterfactual (Section~\ref{sec:counterfactual}).
 
 \subsection{Risk Responses and Residual Risk}
 
@@ -674,7 +676,7 @@ R8 & Mitigate & RACI, decision rights and approval gates ($\rightarrow$ I) & Low
 \label{tab:responses}
 \end{table}
 
-All four strategies appear: most risks are \emph{mitigated}; vendor liability is partly \emph{transferred} by contract (R5); untrained-staff exposure is \emph{avoided} (R7); irreducible false positives are \emph{accepted} (R6). Residual risk is monitored via the audit review and KPIs, with \textbf{triggers} (catch rate below target, or any released-without-approval event) escalating to the Board and a contingency reserve for incidents \cite{falchi_slides}. The claim is not zero risk but controlled risk: every inherent risk moved out of the red cell of Table~\ref{tab:heatmap} and kept there.
+All four strategies appear: most risks are \emph{mitigated}; vendor liability is partly \emph{transferred} by contract (R5); untrained-staff exposure is \emph{avoided} (R7); irreducible false positives are \emph{accepted} (R6) --- deliberately, to avoid \emph{overmitigation}, since over-tuning the detector only multiplies false positives and overprocessing \cite{falchi_slides}. Residual risk is monitored via the audit review and KPIs, with \textbf{triggers} (catch rate below target, or any released-without-approval event) escalating to the Board, backed by a \emph{contingency reserve} for the known risks in the register and a \emph{management reserve}, owned by senior management, for the unknown-unknowns \cite{falchi_slides}. The claim is not zero risk but controlled risk: every inherent risk is moved out of the red cell of the Probability and Impact Matrix (Table~\ref{tab:heatmap}) and kept there.
 
 % ============================================================
 \section{Adoption, Measurement and Business Case}
@@ -705,11 +707,11 @@ Rollout follows the hybrid lifecycle of Section~\ref{sec:architecture} \cite{fal
 \end{table}
 
 \noindent\textbf{Work breakdown and schedule.}\par
-The Design phase decomposes into four work packages \cite{falchi_slides}: (WP1) vendor contracting and DPA; (WP2) pipeline integration and log infrastructure; (WP3) policy, RACI and decision rights; (WP4) reviewer training and certification. WP1 is the longest-lead item and gates WP2, so the \textbf{critical path} runs WP1~$\to$~WP2~$\to$~Pilot. Durations on the uncertain packages (integration, training) are estimated three-point (PERT: optimistic, most likely, pessimistic) to size a realistic schedule and a time buffer ahead of the pilot gate \cite{falchi_slides}.
+The Design phase decomposes, via the WBS, into four work packages \cite{falchi_slides}: (WP1) vendor contracting and DPA; (WP2) pipeline integration and log infrastructure; (WP3) policy, RACI and decision rights; (WP4) reviewer training and certification. WP1 is the longest-lead item and gates WP2, so the \textbf{critical path} runs WP1~$\to$~WP2~$\to$~Pilot. Durations on the uncertain packages (integration, training) use the course's three-point PERT estimate on a beta distribution, $t_e=(o+4m+p)/6$ \cite{falchi_slides}, to size a realistic schedule and a time buffer ahead of the pilot gate.
 
 \subsection{KPIs and Control Effectiveness}
 
-KPIs answer one question: do the controls actually operate? They split into \textbf{leading} indicators (process health, observed continuously, allowing correction before harm) and \textbf{lagging} indicators (outcomes, confirming the framework worked). Each ties to a safe-adoption criterion and feeds the Pillar~IV triggers (Section~\ref{sec:risk}).
+KPIs answer one question: do the controls actually operate? They split into \textbf{leading} indicators --- the course's \emph{key control indicators}, tracking whether the critical controls run \cite{falchi_slides} --- and \textbf{lagging} indicators, the \emph{key risk indicators} that track outcomes against the organization's risk appetite \cite{falchi_slides}. Each ties to a safe-adoption criterion and feeds the Pillar~IV triggers (Section~\ref{sec:risk}).
 
 \begin{table}[H]
 \centering
@@ -761,7 +763,7 @@ A five-level model positions where an organization sits and what the pilot must 
 
 \subsection{Business Case}
 
-This is the project \textbf{business case}, reframed: \textbf{risk-driven, not cost-saving driven}. Direct annual cost may rise, while the value is the expected loss avoided, so the justification is a risk-adjusted return on investment rather than a cheaper-processing saving \cite{falchi_slides}. Assume 200 externally published documents per year.
+This is the project \textbf{business case} \cite{falchi_slides}, reframed: \textbf{risk-driven, not cost-saving driven}. Adopting the framework \emph{changes} the organization rather than running it \cite{falchi_slides}, so it is a project to be justified, not an operating cost to be minimized: direct annual cost may rise, while the value is the expected loss avoided, so the justification is a risk-adjusted return on investment rather than a cheaper-processing saving. Assume 200 externally published documents per year.
 
 \begin{table}[H]
 \centering
@@ -929,10 +931,45 @@ The case is a materialized draw from the register (Section~\ref{sec:risk}): R2, 
 Section~\ref{sec:apply_framework} shows the framework would have blocked the breach qualitatively. This section asks the quantitative question a manager would: what is the expected annual loss with and without the framework, and does the difference justify the cost? It is the case-calibrated version of the expected-monetary-value sketch deferred from Sections~\ref{sec:risk} and~\ref{sec:adoption} \cite{falchi_slides}.
 
 \noindent\textbf{Modelling the decision.}\par
-The publication step is a decision node with two branches, control on or control off, each leading to a chance node where a breach either occurs or does not. Folding the tree back on expected value needs two inputs: the probability of a publication-stage breach per year and its impact. Both are illustrative, chosen consistently with the Part~I figures; what matters is the structure and the order of magnitude, not precision (Section~\ref{sec:synthesis}).
+The publication step is a \textbf{decision tree} \cite{falchi_slides} (Figure~\ref{fig:tree}): a decision node with two branches, control on or control off, each leading to a chance node where a breach either occurs or does not, the branches compared on expected value. Folding the tree back needs two inputs: the annual probability of a publication-stage breach and its impact. Both are illustrative, chosen consistently with the Part~I figures; what matters is the structure and the order of magnitude, not precision (Section~\ref{sec:synthesis}).
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  every node/.style={align=center},
+  dec/.style={draw=accentdark, fill=accentdark, minimum size=12pt, inner sep=0pt},
+  chance/.style={draw=accentdark, fill=white, circle, minimum size=12pt, inner sep=0pt},
+  leaf/.style={draw=accentdark!35, fill=accentlight!45, rounded corners=2pt, inner sep=3pt, font=\scriptsize},
+  lbl/.style={fill=white, inner sep=1.5pt, font=\scriptsize}
+]
+\node[dec] (D) at (0,0) {};
+\node[text=accentdark, font=\scriptsize\bfseries, below=2pt of D] {Publish};
+
+\node[chance] (off) at (4.3,1.7) {};
+\node[chance] (on)  at (4.3,-1.7) {};
+\node[text=accentdark, above=1pt of off, font=\scriptsize] {Status quo\\EMV $=$ \textbf{EUR 100k/yr}};
+\node[text=accentdark, below=1pt of on, font=\scriptsize] {With framework\\EMV $=$ \textbf{EUR 10k/yr}};
+
+\draw[->, accentdark, thick] (D) -- node[lbl, sloped, above] {control OFF} (off);
+\draw[->, accentdark, thick] (D) -- node[lbl, sloped, below] {control ON} (on);
+
+\node[leaf] (offb) at (9.4,2.5) {breach 20\% $\rightarrow$ $-$EUR 500k};
+\node[leaf] (offn) at (9.4,1.1) {no breach 80\% $\rightarrow$ EUR 0};
+\node[leaf] (onb)  at (9.4,-1.1) {breach 2\% $\rightarrow$ $-$EUR 500k};
+\node[leaf] (onn)  at (9.4,-2.5) {no breach 98\% $\rightarrow$ EUR 0};
+
+\draw[->, accentdark!55] (off) -- (offb);
+\draw[->, accentdark!55] (off) -- (offn);
+\draw[->, accentdark!55] (on) -- (onb);
+\draw[->, accentdark!55] (on) -- (onn);
+\end{tikzpicture}
+\caption{Decision tree for the publication step, branches compared on EMV. Expected loss avoided $=$ EUR 90k/yr; net of the EUR 7k incremental direct cost (Table~\ref{tab:businesscase}), net expected benefit $\approx$ EUR 83k/yr.}
+\label{fig:tree}
+\end{figure}
 
 \noindent\textbf{Impact.}\par
-A serious public disclosure of special-category data for hundreds of subjects carries regulatory exposure (a reprimand in this case, with fines available in principle), remediation and notification cost, possible compensation, and reputational damage. Aggregated, an illustrative EUR 500,000 per event is conservative against the GDPR maximum.
+A serious public disclosure of special-category data for hundreds of subjects carries regulatory exposure, remediation and notification cost, possible compensation, and reputational damage. In this case the ICO issued only a \emph{reprimand}: it weighed a fine of up to about GBP~1.1\,million but judged the breach not ``egregious'' under its public-sector approach \cite{ico2025}, while the Post Office still paid compensation and identity-protection costs to those exposed. A private controller would more plausibly face the fine, so, calibrated to a generic organization, an illustrative EUR 500,000 per event is conservative against the GDPR maximum.
 
 \noindent\textbf{Probability.}\par
 For an organization publishing roughly 200 sensitive documents a year with no pre-publication gate, an annual probability of one serious slip on the order of 20\% is plausible, and the Post Office outcome shows the event is far from hypothetical. The framework's mandatory classification, dual-approval gate and token reduce this to a residual of about 2\% (reviewer error despite the controls).
@@ -959,7 +996,7 @@ Less incremental cost (Table~\ref{tab:businesscase}) & & & (EUR 7,000) \\
 On expected value, the framework returns about EUR 83,000 a year against a roughly EUR 7,000 incremental cost: a risk-adjusted payback many times over, and the deferred answer to the Part~I business case (Section~\ref{sec:adoption}).
 
 \noindent\textbf{Why the average understates the case.}\par
-EMV is a mean, and a mean hides the tail, the flaw of averages \cite{falchi_slides}. The danger here is not a steady drip of EUR 100,000 a year; it is the single catastrophic disclosure, which is exactly the event that occurred. A risk that is low-frequency but irreversible is not adequately governed by a cost-benefit average, which is why the very-high tier uses dual control rather than an EMV test (Section~\ref{sec:risk}): the framework is justified not only because expected value is positive, but because the tail outcome is one the organization cannot accept. The Post Office case is that tail outcome made real.
+EMV is a mean, and a mean hides the tail, the flaw of averages \cite{falchi_slides}: \emph{the devil is in the tail}. The danger is not a steady drip of EUR 100,000 a year; it is the single catastrophic disclosure, which is exactly the event that occurred. This sits in the tail the course warns about --- a Black-Swan-class event \cite{falchi_slides}: rare, severe, and obvious only in hindsight (the ICO called it ``entirely preventable'' \cite{ico2025}). The course's prescription for such events is to \emph{narrow the window} they can pass through \cite{falchi_slides}, and the mandatory gate is exactly that narrowing. A low-frequency but irreversible risk is not governed by a cost-benefit average, which is why the very-high tier uses dual control rather than an EMV test (Section~\ref{sec:risk}): the framework is justified not because expected value is positive, but because the tail outcome is one the organization cannot accept. The Post Office case is that tail made real.
 
 % ============================================================
 \section{Synthesis: Lessons from the Case}
@@ -976,72 +1013,21 @@ Read as a lessons-learned review \cite{falchi_slides}, four lessons generalize b
 
 \newpage
 % ============================================================
-\section{Prototype Walkthrough}
+\section{Proof of Concept: Validating the Controls}
 \label{sec:prototype}
 
-To show the framework is operational and not only conceptual, a small runnable prototype implements the Pillar~II and Pillar~III pipeline end to end. It takes a PDF in and produces a redacted PDF plus an audit record. It uses the Python standard library and one PDF library (PyMuPDF); it runs in about one second, with no model download, so it can be executed live. In PM terms it is a proof of concept: the verification-and-validation step that moves the predictive design toward a validated deliverable before the pilot of Section~\ref{sec:adoption} \cite{falchi_slides}.
+To show the framework is operational and not only conceptual, a small proof of concept exercises the Pillar~II and Pillar~III pipeline end to end on a seeded sample document --- the \emph{verification-and-validation} step that moves a predictive design toward a validated deliverable before the pilot of Section~\ref{sec:adoption} \cite{falchi_slides}.
 
-\subsection{What it does}
-
-\begin{enumerate}
-  \item \textbf{Detect} (Pillar~II, the tool proposes): pattern matchers flag emails, phone numbers, postcodes, dates of birth, names, and financial identifiers (IBAN, sort code, account number, National Insurance number, monetary amounts). Each category carries a sensitivity weight (1 routine, 2 personal, 3 financial or special).
-  \item \textbf{Score} (Pillar~II): the tool computes Risk $=$ Sensitivity $\times$ Exposure $\times$ Audience and maps it to a tier, applying the public-release floor of Section~\ref{sec:hitl}.
-  \item \textbf{Redact}: it performs a \emph{true} redaction. The underlying text is deleted from the file and a black bar is drawn over its box, so the sensitive bytes are gone, not merely covered.
-  \item \textbf{Audit} (Pillar~III): it writes a hash-chained record with the four field groups of Section~\ref{sec:audit} (identity, detection, decision, disposition). Publication status stays \texttt{BLOCKED} until a human clears the review gate.
-  \item \textbf{Verify}: it re-opens the output, re-extracts the text, and confirms no flagged item is still present, the byte-level check the Post Office process never performed.
-\end{enumerate}
-
-\subsection{How to run}
-
-\begin{definitionbox}[Commands]
-\ttfamily\small
-python redact\_pdf.py build\\
-python redact\_pdf.py redact sample\_incident\_report.pdf
-\end{definitionbox}
-
-On the seeded sample (a draft memo flagged for public release, naming two sub-postmasters with their bank and identity data) the run reports:
-
-\begin{definitionbox}[Run report (abridged)]
-\ttfamily\scriptsize
-Items detected~~~~: 13 (EMAIL, IBAN, MONEY, NI\_NUMBER, PERSON, ...)\\
-RISK~(Pillar II)~~: 3 x 2 x 3 = 18~~->~~tier: VERY HIGH\\
-Human control~~~~~: Independent review plus dual approval\\
-Byte-level check~~: CLEAN, no sensitive text remains in the file\\
-Audit (Pillar III): hash-chained record written, publication BLOCKED
-\end{definitionbox}
-
-The maximum-adjacent score (18, very high) routes the document to dual approval, exactly the control the case lacked. Figure~\ref{fig:redacted} shows the redacted output.
+Run against a draft memo flagged for public release that holds the bank and identity data of two named individuals, the pipeline behaves exactly as the framework prescribes. The document is classified automatically; sensitivity, exposure and the public-web audience score it into the \textbf{very-high} tier; and it is routed to that tier's control --- \textbf{independent review plus dual approval}, with no automatic release. The audit record is written and \textbf{publication stays blocked until a human clears the gate}: no record, no token, no release. Figure~\ref{fig:redacted} shows the redacted output, every detected item removed while the narrative is preserved, so the document stays useful.
 
 \begin{figure}[H]
 \centering
-\fbox{\includegraphics[width=0.78\textwidth]{redaction-demo/output/redacted_document.pdf}}
-\caption{Prototype output: every detected item is replaced by a black bar tagged with its category. The narrative text (the absence of a technical audit before recovery) is preserved, so the document stays useful while the personal and financial data are removed.}
+\fbox{\includegraphics[width=1.0\textwidth]{redaction-demo/output/redacted_document.pdf}}
+\caption{Proof-of-concept output: each detected personal or financial item is removed and replaced by a labelled bar, while the narrative (here, the absence of a technical audit before recovery) is preserved.}
 \label{fig:redacted}
 \end{figure}
 
-\subsection{Strengths and limitations}
-
-The prototype is a faithful but deliberately minimal slice of the framework. Table~\ref{tab:prototype} states what it demonstrates and what it does not.
-
-\begin{table}[H]
-\centering
-\small
-\rowcolors{2}{accentlight!30!white}{white}
-\begin{tabular}{@{} p{6.7cm} p{7.3cm} @{}}
-\toprule
-\textbf{\color{accentdark}What it demonstrates} & \textbf{\color{accentdark}What it does not (and why it is acceptable)} \\
-\midrule
-True redaction: the data leaves the file, verified by re-extraction & A regex detector misses untitled names (for example a name with no Mr/Mrs prefix); it is a stand-in for the GenAI proposer \\
-Risk scoring and tiering drive the mandated human control automatically & No live LLM is called; detection is rule-based, so recall is partial by design \\
-A hash-chained, append-only audit record with the paper's four field groups & The miss is the point: it makes the automation-bias argument concrete, the human reviewer must catch what the tool leaves (Section~\ref{sec:hitl}) \\
-Publication stays blocked with no reviewer and no token, enforcing the gate & Single document, single page; it illustrates the control, it is not a production service \\
-\bottomrule
-\end{tabular}
-\caption{Prototype scope: the controls it proves operate, and the boundaries it does not cross.}
-\label{tab:prototype}
-\end{table}
-
-The negative result is as instructive as the positive one: detection is an aid to a human gate, not a replacement for it.
+The proof of concept is deliberately partial in one telling way: an untitled name slips past automatic detection. That miss is the point --- it makes the automation-bias argument concrete. Detection is a first pass with partial recall, so the human reviewer must catch what the tool leaves, which is why no tier permits automatic release (Section~\ref{sec:hitl}). The negative result is as instructive as the positive: detection is an aid to a human gate, not a replacement for it.
 
 \newpage
 % ============================================================
